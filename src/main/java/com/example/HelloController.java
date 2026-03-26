@@ -69,13 +69,13 @@ public class HelloController {
         if (!passwordEncoder.matches(oldPassword, userEntity.getPassword())) {
             model.addAttribute("error", "Old password is incorrect");
             model.addAttribute("user", userEntity);
-            return "workspace";
+            return "hello";
         }
         userService.saveRawPassword(userEntity, newPassword);
 
         model.addAttribute("success", "Password changed successfully!");
         model.addAttribute("user", userEntity);
-        return "profile";
+        return "hello";
     }
 
     @PostMapping("/update-profile")
@@ -105,7 +105,7 @@ public class HelloController {
             if (!passwordEncoder.matches(oldPassword, userEntity.getPassword())) {
                 model.addAttribute("error", "Old password is incorrect");
                 model.addAttribute("user", userEntity);
-                return "profile";
+                return "hello";
             }
             userService.saveRawPassword(userEntity, newPassword);
         }
@@ -115,7 +115,7 @@ public class HelloController {
         model.addAttribute("success", "Profile updated successfully!");
         model.addAttribute("user", userEntity);
 
-        return "profile";
+        return "hello";
     }
 
     /*@PostMapping("/update-profile")

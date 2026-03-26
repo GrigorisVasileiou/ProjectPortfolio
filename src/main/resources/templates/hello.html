@@ -116,10 +116,6 @@
         Wrong username or password ❌
     </p>
 
-    <p th:if="${success}" style="color:green;">
-        Registration successful ✅
-    </p>
-
     <form action="/login" method="post">
         <input type="text" name="username" placeholder="Username"><br><br>
         <input type="password" name="password" placeholder="Password"><br><br>
