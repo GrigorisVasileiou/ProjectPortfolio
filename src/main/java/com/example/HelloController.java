@@ -1,8 +1,9 @@
-package com.example.controller;
+package com.example;
 
 import com.example.entity.User;
 import com.example.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,9 +14,14 @@ public class HelloController {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    private PasswordEncoder passwordEncoder;
+    public HelloController(UserService userService, PasswordEncoder passwordEncoder) {
+        this.userService = userService;
+        this.passwordEncoder = passwordEncoder;
+    }
 
     @GetMapping("/hello")
     public String helloPage(@RequestParam(required = false) String error,
@@ -34,20 +40,112 @@ public class HelloController {
     public String register(@RequestParam String username,
                            @RequestParam String password,
                            @RequestParam String email) {
+        if (userService.findByUsername(username) != null) {
+            return "redirect:/hello?error=userExists";
+        }
 
-        User user = new User();
-        user.setUsername(username);
-        user.setPassword(passwordEncoder.encode(password));
-        user.setEmail(email);
-
-        userService.save(user);
+        userService.registerUser(username, email, password);
 
         return "redirect:/hello?success=registered";
     }
 
-    @GetMapping("/success")
-    @ResponseBody
-    public String success() {
-        return "Login SUCCESS ✅";
+    @GetMapping("/workspace")
+    public String workspace(@AuthenticationPrincipal org.springframework.security.core.userdetails.User currentUser,
+                            Model model) {
+        User userEntity = userService.findByUsername(currentUser.getUsername());
+
+        model.addAttribute("user", userEntity);
+        return "workspace";
+    }
+
+    @PostMapping("/change-password")
+    public String changePassword(@RequestParam String oldPassword,
+                                 @RequestParam String newPassword,
+                                 @AuthenticationPrincipal org.springframework.security.core.userdetails.User currentUser,
+                                 Model model) {
+
+        User userEntity = userService.findByUsername(currentUser.getUsername());
+
+        if (!passwordEncoder.matches(oldPassword, userEntity.getPassword())) {
+            model.addAttribute("error", "Old password is incorrect");
+            model.addAttribute("user", userEntity);
+            return "workspace";
+        }
+        userService.saveRawPassword(userEntity, newPassword);
+
+        model.addAttribute("success", "Password changed successfully!");
+        model.addAttribute("user", userEntity);
+        return "profile";
+    }
+
+    @PostMapping("/update-profile")
+    public String updateProfile(@RequestParam String username,
+                                @RequestParam String email,
+                                @RequestParam(required = false) String oldPassword,
+                                @RequestParam(required = false) String newPassword,
+                                @AuthenticationPrincipal org.springframework.security.core.userdetails.User currentUser,
+                                Model model) {
+
+        User userEntity = userService.findByUsername(currentUser.getUsername());
+
+        if (userEntity == null) {
+            model.addAttribute("error", "User not found!");
+            return "profile";
+        }
+
+        if (username != null && !username.isEmpty()) {
+            userEntity.setUsername(username);
+        }
+        if (email != null && !email.isEmpty()) {
+            userEntity.setEmail(email);
+        }
+
+        if (oldPassword != null && newPassword != null &&
+                !oldPassword.isEmpty() && !newPassword.isEmpty()) {
+            if (!passwordEncoder.matches(oldPassword, userEntity.getPassword())) {
+                model.addAttribute("error", "Old password is incorrect");
+                model.addAttribute("user", userEntity);
+                return "profile";
+            }
+            userService.saveRawPassword(userEntity, newPassword);
+        }
+
+        userService.saveWithoutEncoding(userEntity);
+
+        model.addAttribute("success", "Profile updated successfully!");
+        model.addAttribute("user", userEntity);
+
+        return "profile";
+    }
+
+    /*@PostMapping("/update-profile")
+    public String updateProfile(@RequestParam String username,
+                                @RequestParam String email,
+                                @AuthenticationPrincipal org.springframework.security.core.userdetails.User currentUser,
+                                Model model) {
+
+        // Παίρνουμε τον χρήστη από τη βάση
+        User userEntity = userService.findByUsername(currentUser.getUsername());
+
+        // Ενημέρωση στοιχείων
+        userEntity.setUsername(username);
+        userEntity.setEmail(email);
+
+        userService.save(userEntity);
+
+        model.addAttribute("success", "Profile updated successfully!");
+        model.addAttribute("user", userEntity);
+
+        return "profile";
+    }*/
+
+    @GetMapping("/profile")
+    public String profile(@AuthenticationPrincipal org.springframework.security.core.userdetails.User currentUser,
+                          Model model) {
+
+        User userEntity = userService.findByUsername(currentUser.getUsername());
+
+        model.addAttribute("user", userEntity);
+        return "profile";
     }
 }

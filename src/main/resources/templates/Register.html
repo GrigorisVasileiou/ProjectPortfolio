@@ -1,26 +1,122 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <body>
+<style>
+    body{
+        background-image:url('/images/createacc.png');
+        background-size:cover;
+        background-position: center 60%;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        font-family:Arial;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
 
-<h2>Login</h2>
+    .top-text {
+        position: absolute;
+        top: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: rgba(0, 0, 0, 0.7);
+        color: #00ff00;
+        padding: 10px 20px;
+        border-radius: 10px;
+        text-align: center;
+        font-weight: bold;
+        z-index: 1000;
+        box-shadow: 0 0 10px #00ff00;
+        max-width: 90%;
+        word-wrap: break-word;
+    }
 
-<p th:if="${error}" style="color:red;">
-    Wrong username or password ❌
-</p>
+    .center-box {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: rgba(0, 0, 0, 0.6);
+        padding: 40px;
+        border-radius: 15px;
+        text-align: center;
+        color: #00ff00;
+        width: 300px;
+    }
 
-<form action="/login" method="post">
+    .container {
+        background: rgba(0, 0, 0, 0.6);
+        padding: 40px;
+        border-radius: 15px;
+        text-align: center;
+        color: #00ff00;
+        width: 300px;
+    }
 
-    <input type="text" name="username" placeholder="Username"><br><br>
-    <input type="password" name="password" placeholder="Password"><br><br>
+    h2 {
+        margin-bottom: 20px;
+        color: #00ff00;
+        text-shadow: 0 0 5px #00ff00;
+    }
 
-    <button type="submit">Login</button>
-</form>
+    input {
+        width: 100%;
+        padding: 8px;
+        margin: 8px 0;
+        border: none;
+        border-radius: 8px;
+        font-size: 14px;
+    }
 
-<br>
+    input:focus {
+        outline: none;
+        box-shadow: 0 0 5px #00ffcc;
+    }
 
-<form action="/register" method="get">
-    <button type="submit">Register</button>
-</form>
+    button {
+        width: 100%;
+        padding: 8px;
+        margin-top: 10px;
+        background-color: #00ff00;
+        border: none;
+        border-radius: 8px;
+        font-size: 14px;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    button:hover {
+        background-color: #00cc00;
+    }
+
+    a {
+        display: block;
+        margin-top: 15px;
+        color: #00ff00;
+        text-decoration: none;
+    }
+
+    a:hover {
+        color: #00cc00;
+    }
+</style>
+
+<div class="top-text">
+    <h2>Εγγραφή νέου χρήστη.</h2>
+</div>
+
+<div class="container">
+    <form action="/register" method="post">
+        <input type="text" name="username" placeholder="Username" required><br><br>
+        <input type="email" name="email" placeholder="Email" required><br><br>
+        <input type="password" name="password" placeholder="Password" required><br><br>
+        <button type="submit">Register</button>
+    </form>
+
+    <a href="/login">Επιστροφή στο Login</a>
+
+</div>
 
 </body>
 </html>

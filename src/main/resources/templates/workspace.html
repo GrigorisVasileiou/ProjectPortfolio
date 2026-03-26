@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<style>
+    body{
+        background-image:url('/images/workspace.png');
+        background-size:cover;
+        background-position: center 60%;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        font-family:Arial;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+
+    .top-text {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        font-size: 24px;
+        transform: none;
+        background: none;
+        color: #00ff00;
+        padding: 0;
+        border-radius: 0;
+        text-align: left;
+        font-weight: bold;
+        z-index: 1000;
+        box-shadow: none;
+    }
+    .top-buttons {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    }
+
+    .profile-btn, .logout-btn {
+        font-size: 18px;
+        padding: 13px 23px;
+        background-color: red;
+        color: black;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        transition: 0.2s;
+        width: 180px;
+    }
+
+    .profile-btn:hover,
+    .logout-btn:hover {
+        background-color: darkred;
+        transform: scale(1.05);
+    }
+
+    form:hover {
+        background-color: darkred;
+        transform: scale(1.05);
+    }
+
+    form .arrow {
+        font-size: 28px;
+    }
+
+</style>
+
+<div class="top-text">
+    <h2>Home</h2>
+</div>
+
+
+<div class="top-buttons">
+    <a href="/profile">
+        <button type="button" class="profile-btn">
+            👤 Profile
+        </button>
+    </a>
+
+    <form method="post" action="/logout">
+        <button type="submit" class="logout-btn">
+            Logout ➔
+        </button>
+    </form>
+</div>
+
+</body>
+</html>
