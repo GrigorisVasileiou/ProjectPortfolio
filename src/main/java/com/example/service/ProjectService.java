@@ -44,4 +44,8 @@ public class ProjectService {
     public List<Project> getProjectsByUser(User user) {
         return projectRepository.findByUser(user);
     }
+
+    public Project getById(Long id) {
+        return projectRepository.findById(id).orElse(null);
+    }
 }

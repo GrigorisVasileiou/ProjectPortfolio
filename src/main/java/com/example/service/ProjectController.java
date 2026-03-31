@@ -1,5 +1,6 @@
-package com.example;
+package com.example.service;
 
+import com.example.entity.Project;
 import com.example.entity.User;
 import com.example.service.ProjectService;
 import com.example.service.UserService;
@@ -51,5 +52,12 @@ public class ProjectController {
         projectService.deleteProject(id, user);
 
         return "redirect:/projects";
+    }
+
+    @GetMapping("/projects/{id}")
+    public String viewProject(@PathVariable Long id, Model model) {
+        Project project = projectService.getById(id);
+        model.addAttribute("project", project);
+        return "project-details";
     }
 }

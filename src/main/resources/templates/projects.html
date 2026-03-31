@@ -1,0 +1,28 @@
+<h2>My Projects</h2>
+
+<form action="/projects/create" method="post">
+    <input type="text" name="name" placeholder="Project Name" required />
+    <input type="text" name="description" placeholder="Description" />
+    <button type="submit">Create</button>
+</form>
+
+<hr>
+
+<ul>
+    <li th:each="p : ${projects}">
+
+        <!-- ΚΛΙΚ ΣΤΟ PROJECT -->
+        <a th:href="@{'/projects/' + ${p.id}}"
+           th:text="${p.name}">
+        </a>
+
+        -
+        <span th:text="${p.description}"></span>
+
+        <form action="/projects/delete" method="post" style="display:inline;">
+            <input type="hidden" name="id" th:value="${p.id}" />
+            <button type="submit">Delete</button>
+        </form>
+
+    </li>
+</ul>
