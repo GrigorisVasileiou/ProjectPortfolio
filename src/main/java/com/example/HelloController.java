@@ -90,7 +90,7 @@ public class HelloController {
 
         if (userEntity == null) {
             model.addAttribute("error", "User not found!");
-            return "profile";
+            return "hello";
         }
 
         if (username != null && !username.isEmpty()) {
@@ -107,7 +107,9 @@ public class HelloController {
                 model.addAttribute("user", userEntity);
                 return "hello";
             }
-            userService.saveRawPassword(userEntity, newPassword);
+            //userService.saveRawPassword(userEntity, newPassword);
+            userEntity.setPassword(passwordEncoder.encode(newPassword));
+            userService.save(userEntity);
         }
 
         userService.saveWithoutEncoding(userEntity);

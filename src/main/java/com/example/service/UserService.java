@@ -40,6 +40,6 @@ public class UserService {
     }
 
     public void saveWithoutEncoding(User user) {
-        userRepository.save(user);  
+        userRepository.save(user);
     }
 }
