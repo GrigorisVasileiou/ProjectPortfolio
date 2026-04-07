@@ -71,6 +71,30 @@
         font-size: 28px;
     }
 
+    .center-button {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .projects-btn {
+        font-size: 28px;
+        padding: 20px 40px;
+        background-color: #00ff00;
+        color: black;
+        border: none;
+        border-radius: 12px;
+        cursor: pointer;
+        font-weight: bold;
+        transition: 0.3s;
+    }
+
+    .projects-btn:hover {
+        background-color: #39FF14;
+        transform: scale(1.1);
+    }
+
 </style>
 
 <div class="top-text">
@@ -90,7 +114,14 @@
             Logout ➔
         </button>
     </form>
-    <a href="/projects">My Projects</a>
+</div>
+
+<div class="center-button">
+    <a href="/projects">
+        <button type="button" class="projects-btn">
+            📁 My Projects
+        </button>
+    </a>
 </div>
 
 </body>

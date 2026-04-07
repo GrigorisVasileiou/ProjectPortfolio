@@ -5,17 +5,20 @@ import lombok.Data;
 
 @Entity
 @Data
-@Table(name = "projects")
-public class Project {
+@Table(name = "UseCases")
+public class UseCase {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String name;
+    private String actors;
+    private String preconditions;
+    private String mainFlow;
+    private String postconditions;
 
-    private String description;
     @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+    private Project project;
+
 }
