@@ -49,6 +49,21 @@ public class UseCaseService {
         }
     }
 
+    public void updateUseCasePartial(Long id, String name, String actors) {
+        UseCase uc = useCaseRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("UseCase not found"));
+
+        if (name != null && !name.isBlank()) {
+            uc.setName(name);
+        }
+
+        if (actors != null && !actors.isBlank()) {
+            uc.setActors(actors);
+        }
+
+        useCaseRepository.save(uc);
+    }
+
     // ✅ US10 - DELETE
     public void deleteUseCase(Long id) {
         useCaseRepository.deleteById(id);

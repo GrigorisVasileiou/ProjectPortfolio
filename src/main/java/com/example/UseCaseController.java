@@ -42,7 +42,7 @@ public class UseCaseController {
     public String showCreateForm(@PathVariable Long projectId, Model model) {
         Project project = projectService.getById(projectId);
         model.addAttribute("project", project);
-        return "usecases";
+        return "createUseCase";
     }
 
     // ✅ GET (US9)
@@ -54,19 +54,20 @@ public class UseCaseController {
         model.addAttribute("usecases", useCaseService.getByProject(project));
         model.addAttribute("project", project);
 
-        return "usecases";
+        return "manageUseCases";
     }
 
     // ✅ UPDATE (US8)
     @PostMapping("/usecases/update")
     public String updateUseCase(
             @RequestParam Long id,
-            @RequestParam String name,
-            @RequestParam String actors
+            @RequestParam(required = false) String name,
+            @RequestParam(required = false) String actors
     ) {
-        useCaseService.updateUseCase(id, name, actors);
+        useCaseService.updateUseCasePartial(id, name, actors);
+
         Long projectId = useCaseService.getById(id).getProject().getId();
-        return "redirect:/projects/" + projectId;
+        return "redirect:/usecases/" + projectId;
     }
 
     // ✅ DELETE (US10)
@@ -75,13 +76,5 @@ public class UseCaseController {
         Long projectId = useCaseService.getById(id).getProject().getId();
         useCaseService.deleteUseCase(id);
         return "redirect:/usecases/" + projectId;
-    }
-
-    @GetMapping("/usecases/{projectId}/list")
-    public String viewUseCases(@PathVariable Long projectId, Model model) {
-        Project project = projectService.getById(projectId);
-        model.addAttribute("project", project);
-        model.addAttribute("usecases", useCaseService.getByProject(project));
-        return "usecases-list";
     }
 }

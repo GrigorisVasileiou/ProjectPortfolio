@@ -13,6 +13,10 @@
             background-position: center;
             background-repeat: no-repeat;
             background-attachment: fixed;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
         }
 
         /* DARK OVERLAY */
@@ -103,6 +107,24 @@
             background: limegreen;
         }
 
+        .btn-back {
+            display: inline-block;
+            padding: 10px 15px;
+            background: red;
+            color: white;
+            border-radius: 6px;
+            font-weight: bold;
+            margin-top: 10px;
+            cursor: pointer;
+            border: none;
+            transition: 0.2s;
+        }
+
+        .btn-back:hover {
+            transform: scale(1.05);
+            background: red;
+        }
+
         .label {
             color: limegreen;
             font-weight: bold;
@@ -114,24 +136,6 @@
             border-radius: 5px;
             border: none;
         }
-
-        .btn-delete {
-        display: inline-block;
-        padding: 10px 15px;
-        background: red;
-        color: white;
-        text-decoration: none;
-        border-radius: 6px;
-        font-weight: bold;
-        margin-top: 10px;
-        transition: 0.2s;
-        cursor: pointer;
-    }
-
-    .btn-delete:hover {
-        transform: scale(1.05);
-        background: darkred;
-    }
 
     </style>
 </head>
@@ -149,65 +153,41 @@
 <div class="main">
     <div class="title">Create Use Case for Project: <span th:text="${project.name}"></span></div>
 
-    <!-- LIST EXISTING USE CASES -->
-    <div class="card">
-        <h3>Existing Use Cases</h3>
-        <div th:if="${#lists.isEmpty(usecases)}">No use cases yet.</div>
-        <div th:each="uc : ${usecases}">
-            <p>
-                <span class="label">Name:</span> <span th:text="${uc.name}"></span><br/>
-                <span class="label">Actors:</span> <span th:text="${uc.actors}"></span><br/>
-                <span class="label">Preconditions:</span> <span th:text="${uc.preconditions}"></span><br/>
-                <span class="label">Main Flow:</span> <span th:text="${uc.mainFlow}"></span><br/>
-                <span class="label">Postconditions:</span> <span th:text="${uc.postconditions}"></span>
-            </p>
-            <form th:action="@{/usecases/delete}" method="post" style="display:inline;">
-                <input type="hidden" name="id" th:value="${uc.id}" />
-                <button class="btn-delete" type="submit">Delete</button>
-            </form>
-            <button class="btn"
-                    th:attr="data-id=${uc.id}, data-name=${uc.name}, data-actors=${uc.actors}"
-                    onclick="showUpdateForm(this)">Update</button>
-            <hr/>
-        </div>
-    </div>
-
-    <!-- CREATE FORM -->
+    <!-- ONLY CREATE FORM -->
     <div class="card">
         <h3>Create New Use Case</h3>
         <form th:action="@{/usecases/create}" method="post">
             <input type="hidden" name="projectId" th:value="${project.id}" />
-            <label>Name: <input type="text" name="name" required/></label><br/>
-            <label>Actors: <input type="text" name="actors" required/></label><br/>
-            <label>Preconditions: <input type="text" name="preconditions"/></label><br/>
-            <label>Main Flow: <input type="text" name="mainFlow"/></label><br/>
-            <label>Postconditions: <input type="text" name="postconditions"/></label><br/>
+
+            <label class="label">Name:
+                <input type="text" name="name" required/>
+            </label><br/>
+
+            <label class="label">Actors:
+                <input type="text" name="actors" required/>
+            </label><br/>
+
+            <label class="label">Preconditions:
+                <input type="text" name="preconditions"/>
+            </label><br/>
+
+            <label class="label">Main Flow:
+                <input type="text" name="mainFlow"/>
+            </label><br/>
+
+            <label class="label">Postconditions:
+                <input type="text" name="postconditions"/>
+            </label><br/>
+
             <button class="btn" type="submit">Create Use Case</button>
         </form>
-    </div>
 
-    <!-- UPDATE FORM (initially hidden) -->
-    <div id="updateForm" class="card" style="display:none;">
-        <h3>Update Use Case</h3>
-        <form th:action="@{/usecases/update}" method="post">
-            <input type="hidden" name="id" id="updateId"/>
-            <label>Name: <input type="text" name="name" id="updateName"/></label><br/>
-            <label>Actors: <input type="text" name="actors" id="updateActors"/></label><br/>
-            <button class="btn" type="submit">Update Use Case</button>
+        <form th:action="@{/projects/{id}(id=${project.id})}" method="get">
+            <button class="btn-back" type="submit">Back</button>
         </form>
     </div>
 
 </div>
-
-<script>
-    function showUpdateForm(button) {
-        document.getElementById('updateForm').style.display = 'block';
-        document.getElementById('updateId').value = button.dataset.id;
-        document.getElementById('updateName').value = button.dataset.name;
-        document.getElementById('updateActors').value = button.dataset.actors;
-        window.scrollTo(0, document.getElementById('updateForm').offsetTop);
-    }
-</script>
 
 </body>
 </html>
