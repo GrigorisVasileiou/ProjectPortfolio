@@ -54,7 +54,8 @@ public class CRCCardService {
             Long id,
             String className,
             String responsibilities,
-            String collaborators
+            String collaborators,
+            UseCase useCase
     ) {
         CRCCard card = getById(id);
 
@@ -76,5 +77,9 @@ public class CRCCardService {
     // US14 - Delete
     public void deleteCard(Long id) {
         crcCardRepository.deleteById(id);
+    }
+
+    public void save(CRCCard card) {
+        crcCardRepository.save(card);
     }
 }

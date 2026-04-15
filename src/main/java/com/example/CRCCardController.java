@@ -1,5 +1,6 @@
 package com.example;
 
+import com.example.entity.CRCCard;
 import com.example.entity.Project;
 import com.example.entity.UseCase;
 import com.example.service.CRCCardService;
@@ -84,14 +85,40 @@ public class CRCCardController {
             @RequestParam Long id,
             @RequestParam(required = false) String className,
             @RequestParam(required = false) String responsibilities,
-            @RequestParam(required = false) String collaborators
+            @RequestParam(required = false) String collaborators,
+            @RequestParam(required = false) Long useCaseId
     ) {
 
-        crcCardService.updateCard(id, className, responsibilities, collaborators);
+        Project project = crcCardService.getById(id).getProject();
 
-        Long projectId = crcCardService.getById(id).getProject().getId();
+        UseCase useCase = null;
+        if (useCaseId != null) {
+            useCase = useCaseService.getById(useCaseId);
+        }
 
-        return "redirect:/crc/" + projectId;
+        CRCCard card = crcCardService.getById(id);
+
+        card.setClassName(className);
+        card.setResponsibilities(responsibilities);
+        card.setCollaborators(collaborators);
+        card.setUseCase(useCase);
+
+        crcCardService.save(card);
+
+        return "redirect:/crc/" + project.getId();
+    }
+
+    @GetMapping("/crc/edit/{id}")
+    public String showEditForm(@PathVariable Long id, Model model) {
+
+        CRCCard card = crcCardService.getById(id);
+
+        model.addAttribute("card", card);
+        model.addAttribute("project", card.getProject());
+        model.addAttribute("usecases",
+                useCaseService.getByProject(card.getProject()));
+
+        return "editCRCCard";
     }
 
     // US14

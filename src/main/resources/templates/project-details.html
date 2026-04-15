@@ -137,24 +137,28 @@
     <!-- USE CASES -->
     <div class="card">
         <h3>Use Cases</h3>
-        <a th:href="@{/usecases/create/{projectId}(projectId=${project.id})}" class="btn">+ Add Use Case</a>
+        <a th:href="@{/usecases/create/{projectId}(projectId=${project.id})}" class="btn">🃏+ Add Use Case</a>
     </div>
 
     <!-- CRC CARDS -->
     <div class="card">
         <h3>CRC Cards</h3>
-        <a href="#" class="btn">+ Add CRC Card</a>
+        <a th:href="@{/crc/create/{projectId}(projectId=${project.id})}" class="btn">🃏+ Add CRC Card</a>
     </div>
 
     <!-- USE CASES BUTTON -->
     <div class="card">
         <h3>Manage Use Cases</h3>
-        <a th:href="@{/usecases/{projectId}(projectId=${project.id})}" class="btn">View Use Cases</a>
+        <a th:href="@{/usecases/{projectId}(projectId=${project.id})}" class="btn">📑View Use Cases</a>
+    </div>
+
+    <!-- CRC CARDS BUTTON -->
+    <div class="card">
+        <h3>Manage CRC Cards</h3>
+        <a th:href="@{/crc/{projectId}(projectId=${project.id})}" class="btn">🗂️View CRC Cards</a>
     </div>
 
 </div>
-
-
 
 </body>
 </html>

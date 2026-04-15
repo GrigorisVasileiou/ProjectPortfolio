@@ -2,6 +2,7 @@ package com.example.service;
 
 import com.example.entity.Project;
 import com.example.entity.User;
+import com.example.service.CRCCardService;
 import com.example.service.ProjectService;
 import com.example.service.UseCaseService;
 import com.example.service.UserService;
@@ -16,13 +17,16 @@ public class ProjectController {
     private final ProjectService projectService;
     private final UserService userService;
     private final UseCaseService useCaseService;
+    private final CRCCardService crcCardService;
 
     public ProjectController(ProjectService projectService,
                              UserService userService,
-                             UseCaseService useCaseService) {
+                             UseCaseService useCaseService,
+                             CRCCardService crcCardService) {
         this.projectService = projectService;
         this.userService = userService;
         this.useCaseService = useCaseService;
+        this.crcCardService = crcCardService;
     }
 
     @GetMapping("/projects")
@@ -53,8 +57,10 @@ public class ProjectController {
     @GetMapping("/projects/{id}")
     public String viewProject(@PathVariable Long id, Model model) {
         Project project = projectService.getById(id);
+
         model.addAttribute("project", project);
         model.addAttribute("usecases", useCaseService.getByProject(project));
+        model.addAttribute("cards", crcCardService.getByProject(project));
         return "project-details";
     }
 }

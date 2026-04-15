@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Entity
 @Data
-@Table(name = "crc_cards")
+@Table(name = "CRC_Cards")
 public class CRCCard {
 
     @Id

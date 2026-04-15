@@ -3,9 +3,11 @@ package com.example.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.List;
+
 @Entity
 @Data
-@Table(name = "UseCases")
+@Table(name = "use_cases")
 public class UseCase {
 
     @Id
@@ -21,4 +23,6 @@ public class UseCase {
     @ManyToOne
     private Project project;
 
+    @OneToMany(mappedBy = "useCase")
+    private List<CRCCard> crcCards;
 }

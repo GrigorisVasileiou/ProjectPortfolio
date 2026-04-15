@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="el">
+<head>
+    <meta charset="UTF-8">
+    <title>Manage CRC Cards</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial;
+            color: white;
+            background-image: url('/images/project_details.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: -1;
+        }
+
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 220px;
+            height: 100%;
+            background: #020617;
+            padding-top: 20px;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.5);
+        }
+
+        .sidebar h2 {
+            text-align: center;
+            color: lawngreen;
+            margin-bottom: 30px;
+        }
+
+        .sidebar a {
+            display: block;
+            padding: 15px;
+            color: white;
+            text-decoration: none;
+            transition: 0.2s;
+        }
+
+        .sidebar a:hover {
+            background: #00ffcc;
+            color: black;
+        }
+
+        .main {
+            margin-left: 220px;
+            padding: 30px;
+        }
+
+        .title {
+            font-size: 28px;
+            color: lawngreen;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .card {
+            background: #020617;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 0 10px rgba(0,255,204,0.1);
+        }
+
+        .card h3 {
+            margin-top: 0;
+            color: orangered;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 15px;
+            background: limegreen;
+            color: black;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: bold;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+
+        .btn-delete {
+            display: inline-block;
+            padding: 10px 15px;
+            background: red;
+            color: white;
+            border-radius: 6px;
+            font-weight: bold;
+            margin-top: 10px;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-cancel {
+            display: inline-block;
+            padding: 10px 15px;
+            background: red;
+            color: white;
+            border-radius: 6px;
+            font-weight: bold;
+            margin-top: 10px;
+            cursor: pointer;
+            border: none;
+        }
+
+        .label {
+            color: limegreen;
+            font-weight: bold;
+        }
+
+        #updateForm label {
+            display: block;
+            margin-top: 10px;
+        }
+
+        input[type="text"], textarea {
+            padding: 5px;
+            margin: 5px 0;
+            border-radius: 5px;
+            border: none;
+            width: 100%;
+        }
+
+        textarea {
+            resize: none;
+            height: 60px;
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+    <h2>Dashboard</h2>
+    <a href="/workspace">🏠 Home</a>
+    <a href="/profile">👤 Profile</a>
+    <a th:href="@{/projects/{id}(id=${project.id})}">📁 Project Details</a>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+    <div class="title">
+        Manage CRC Cards for: <span th:text="${project.name}"></span>
+    </div>
+
+    <!-- CRC LIST -->
+    <div class="card">
+
+        <div th:if="${#lists.isEmpty(cards)}">
+            No CRC cards yet.
+        </div>
+
+        <div th:each="card, iterStat : ${cards}">
+
+            <h3>
+                CRC Card <span th:text="${iterStat.count}"></span>
+            </h3>
+
+            <p>
+                <span class="label">Class Name:</span>
+                <span th:text="${card.className}"></span><br/>
+
+                <span class="label">Responsibilities:</span>
+                <span th:text="${card.responsibilities}"></span><br/>
+
+                <span class="label">Collaborators:</span>
+                <span th:text="${card.collaborators}"></span>
+            </p>
+
+            <p th:if="${card.useCase != null}">
+                <span class="label">Linked Use Case:</span>
+                <span th:text="${card.useCase.name}"></span>
+            </p>
+
+            <!-- DELETE -->
+            <form action="/crc/delete" method="post" style="display:inline;">
+                <input type="hidden" name="id" th:value="${card.id}">
+                <button class="btn-delete" type="submit">Delete</button>
+            </form>
+
+            <!-- UPDATE BUTTON -->
+            <button class="btn"
+                    th:attr="data-id=${card.id},
+                             data-name=${card.className},
+                             data-resp=${card.responsibilities},
+                             data-collab=${card.collaborators},
+                             data-index=${iterStat.count}"
+                    onclick="showUpdateForm(this)">
+                Update
+            </button>
+
+            <hr/>
+        </div>
+    </div>
+
+    <!-- UPDATE FORM -->
+    <div id="updateForm" class="card" style="display:none;">
+        <h3>
+            Updating CRC Card:
+            <span id="updateTitle"></span>
+        </h3>
+
+        <form th:action="@{/crc/update}" method="post">
+
+            <input type="hidden" name="id" id="updateId"/>
+
+            <label class="label">Class Name:
+                <input type="text" name="className" id="updateName"/>
+            </label>
+
+            <label class="label">Responsibilities:
+                <textarea name="responsibilities" id="updateResp"></textarea>
+            </label>
+
+            <label class="label">Collaborators:
+                <textarea name="collaborators" id="updateCollab"></textarea>
+            </label>
+
+            <button type="button" class="btn-cancel" onclick="hideUpdateForm()">Cancel</button>
+
+            <button class="btn">Update</button>
+        </form>
+    </div>
+
+</div>
+
+<script>
+    function showUpdateForm(button) {
+        document.getElementById('updateForm').style.display = 'block';
+
+        document.getElementById('updateId').value = button.dataset.id;
+        document.getElementById('updateName').value = button.dataset.name;
+        document.getElementById('updateResp').value = button.dataset.resp;
+        document.getElementById('updateCollab').value = button.dataset.collab;
+
+        document.getElementById('updateTitle').innerText = button.dataset.index;
+    }
+
+    function hideUpdateForm() {
+        document.getElementById('updateForm').style.display = 'none';
+
+        document.getElementById('updateId').value = '';
+        document.getElementById('updateName').value = '';
+        document.getElementById('updateResp').value = '';
+        document.getElementById('updateCollab').value = '';
+    }
+</script>
+
+</body>
+</html>
