@@ -20,7 +20,7 @@ public class UseCaseService {
                 .orElseThrow(() -> new RuntimeException("UseCase not found."));
     }
 
-    // ✅ US7 - CREATE
+    //US7 - CREATE
     public void createUseCase(String name, String actors, String pre, String main, String post, Project project) {
         UseCase uc = new UseCase();
         uc.setName(name);
@@ -33,12 +33,12 @@ public class UseCaseService {
         useCaseRepository.save(uc);
     }
 
-    // ✅ US9 - GET ALL
+    //US9 - GET ALL
     public List<UseCase> getByProject(Project project) {
         return useCaseRepository.findByProject(project);
     }
 
-    // ✅ US8 - UPDATE
+    //US8 - UPDATE
     public void updateUseCase(Long id, String name, String actors) {
         UseCase uc = useCaseRepository.findById(id).orElse(null);
 
@@ -64,9 +64,8 @@ public class UseCaseService {
         useCaseRepository.save(uc);
     }
 
-    // ✅ US10 - DELETE
+    //US10 - DELETE
     public void deleteUseCase(Long id) {
         useCaseRepository.deleteById(id);
     }
-
 }
