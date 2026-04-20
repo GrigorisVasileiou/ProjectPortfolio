@@ -35,7 +35,7 @@ public class UseCaseController {
 
         useCaseService.createUseCase(name, actors, preconditions, mainFlow, postconditions, project);
 
-        return "redirect:/usecases/" + project.getId();
+        return "redirect:/usecases/create/" + project.getId();
     }
 
     @GetMapping("/usecases/create/{projectId}")

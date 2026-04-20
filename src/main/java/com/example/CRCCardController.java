@@ -64,7 +64,7 @@ public class CRCCardController {
                 useCase
         );
 
-        return "redirect:/crc/" + projectId;
+        return "redirect:/crc/create/" + projectId;
     }
 
     // Προβολή όλων των CRC cards ενός project
