@@ -62,10 +62,19 @@ public class UseCaseController {
     public String updateUseCase(
             @RequestParam Long id,
             @RequestParam(required = false) String name,
-            @RequestParam(required = false) String actors
+            @RequestParam(required = false) String actors,
+            @RequestParam(required = false) String preconditions,
+            @RequestParam(required = false) String mainFlow,
+            @RequestParam(required = false) String postconditions
     ) {
-        useCaseService.updateUseCasePartial(id, name, actors);
-
+        useCaseService.updateUseCase(
+                id,
+                name,
+                actors,
+                preconditions,
+                mainFlow,
+                postconditions
+        );
         Long projectId = useCaseService.getById(id).getProject().getId();
         return "redirect:/usecases/" + projectId;
     }

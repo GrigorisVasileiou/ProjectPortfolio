@@ -123,6 +123,29 @@
             font-weight: bold;
         }
 
+        .multiline-box {
+            white-space: pre-line;
+            margin: 6px 0 12px 0;
+            padding: 10px;
+            background: #0f172a;
+            border-radius: 8px;
+            color: white;
+            line-height: 1.6;
+        }
+
+        .bullet-box {
+            width: 100%;
+            min-height: 120px;
+            padding: 10px;
+            border: none;
+            border-radius: 8px;
+            resize: vertical;
+            background: #0f172a;
+            color: white;
+            line-height: 1.6;
+            font-family: Arial, sans-serif;
+        }
+
         #updateForm label {
             display: block;
             margin-top: 10px;
@@ -178,10 +201,10 @@
                 <span th:text="${card.className}"></span><br/>
 
                 <span class="label">Responsibilities:</span>
-                <span th:text="${card.responsibilities}"></span><br/>
+                <div class="multiline-box" th:text="${card.responsibilities}"></div>
 
                 <span class="label">Collaborators:</span>
-                <span th:text="${card.collaborators}"></span>
+                <div class="multiline-box" th:text="${card.collaborators}"></div>
             </p>
 
             <p th:if="${card.useCase != null}">
@@ -226,11 +249,11 @@
             </label>
 
             <label class="label">Responsibilities:
-                <textarea name="responsibilities" id="updateResp"></textarea>
+                <textarea name="responsibilities" id="updateResp" class="bullet-box"></textarea>
             </label>
 
             <label class="label">Collaborators:
-                <textarea name="collaborators" id="updateCollab"></textarea>
+                <textarea name="collaborators" id="updateCollab" class="bullet-box"></textarea>
             </label>
 
             <button type="button" class="btn-cancel" onclick="hideUpdateForm()">Cancel</button>
@@ -263,5 +286,32 @@
     }
 </script>
 
+<script>
+    function enableBulletBehavior(textareaId) {
+        const textarea = document.getElementById(textareaId);
+
+        textarea.addEventListener('keydown', function (e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+
+                const start = textarea.selectionStart;
+                const end = textarea.selectionEnd;
+
+                textarea.value = textarea.value.substring(0, start) + '\n• ' + textarea.value.substring(end);
+
+                textarea.selectionStart = textarea.selectionEnd = start + 3;
+            }
+        });
+
+        textarea.addEventListener('focus', function () {
+            if (textarea.value.trim() === '') {
+                textarea.value = '• ';
+            }
+        });
+    }
+
+    enableBulletBehavior('updateResp');
+    enableBulletBehavior('updateCollab');
+</script>
 </body>
 </html>

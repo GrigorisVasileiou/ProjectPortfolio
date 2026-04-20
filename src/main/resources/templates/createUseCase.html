@@ -130,6 +130,27 @@
             font-weight: bold;
         }
 
+        .bullet-box {
+            width: 100%;
+            max-width: 500px;
+            min-height: 120px;
+            padding: 10px;
+            margin: 8px 0 15px 0;
+            border: none;
+            border-radius: 8px;
+            resize: vertical;
+            font-size: 14px;
+            font-family: Arial, sans-serif;
+            background: #0f172a;
+            color: white;
+            outline: none;
+            line-height: 1.6;
+        }
+
+        .bullet-box:focus {
+            box-shadow: 0 0 8px rgba(0,255,204,0.5);
+        }
+
         input[type="text"] {
             padding: 5px;
             margin: 5px 0;
@@ -168,15 +189,18 @@
             </label><br/>
 
             <label class="label">Preconditions:
-                <input type="text" name="preconditions"/>
+                <label class="label">Preconditions:</label><br/>
+                <textarea id="preconditions" name="preconditions" class="bullet-box"></textarea><br/>
             </label><br/>
 
             <label class="label">Main Flow:
-                <input type="text" name="mainFlow"/>
+                <label class="label">Main Flow:</label><br/>
+                <textarea id="mainFlow" name="mainFlow" class="bullet-box"></textarea><br/>
             </label><br/>
 
             <label class="label">Postconditions:
-                <input type="text" name="postconditions"/>
+                <label class="label">Postconditions:</label><br/>
+                <textarea id="postconditions" name="postconditions" class="bullet-box"></textarea><br/>
             </label><br/>
 
             <button class="btn" type="submit">Create Use Case</button>
@@ -188,6 +212,38 @@
     </div>
 
 </div>
+
+<script>
+    function enableBulletBehavior(textareaId) {
+        const textarea = document.getElementById(textareaId);
+
+        // Βάζει το πρώτο bullet όταν ανοίγει η φόρμα
+        textarea.addEventListener('focus', function () {
+            if (textarea.value.trim() === '') {
+                textarea.value = '• ';
+            }
+        });
+
+        textarea.addEventListener('keydown', function (e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+
+                const start = textarea.selectionStart;
+                const end = textarea.selectionEnd;
+                const value = textarea.value;
+
+                const newValue = value.substring(0, start) + '\n• ' + value.substring(end);
+                textarea.value = newValue;
+
+                textarea.selectionStart = textarea.selectionEnd = start + 3;
+            }
+        });
+    }
+
+    enableBulletBehavior('preconditions');
+    enableBulletBehavior('mainFlow');
+    enableBulletBehavior('postconditions');
+</script>
 
 </body>
 </html>

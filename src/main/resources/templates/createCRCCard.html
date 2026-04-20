@@ -115,6 +115,26 @@
             margin-top: 10px;
         }
 
+        .bullet-box {
+            width: 100%;
+            min-height: 120px;
+            padding: 10px;
+            margin-top: 5px;
+            border: none;
+            border-radius: 8px;
+            resize: vertical;
+            background: #0f172a;
+            color: white;
+            line-height: 1.6;
+            font-size: 14px;
+            font-family: Arial, sans-serif;
+        }
+
+        .bullet-box:focus {
+            outline: none;
+            box-shadow: 0 0 8px rgba(0,255,204,0.5);
+        }
+
         input, textarea, select {
             width: 100%;
             padding: 8px;
@@ -156,14 +176,13 @@
             <input type="text" name="className" required>
 
             <label class="label">Responsibilities</label>
-            <textarea name="responsibilities"></textarea>
+            <textarea id="responsibilities" name="responsibilities" class="bullet-box"></textarea>
 
             <label class="label">Collaborators</label>
-            <textarea name="collaborators"></textarea>
+            <textarea id="collaborators" name="collaborators" class="bullet-box"></textarea>
 
             <label class="label">Use Case</label>
-            <select name="useCaseId">
-                <option value="">-- none --</option>
+            <select name="useCaseId" required>
                 <option th:each="uc : ${usecases}"
                         th:value="${uc.id}"
                         th:text="${uc.name}">
@@ -181,5 +200,32 @@
 
 </div>
 
+<script>
+    function enableBulletBehavior(textareaId) {
+        const textarea = document.getElementById(textareaId);
+
+        textarea.addEventListener('focus', function () {
+            if (textarea.value.trim() === '') {
+                textarea.value = '• ';
+            }
+        });
+
+        textarea.addEventListener('keydown', function (e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+
+                const start = textarea.selectionStart;
+                const end = textarea.selectionEnd;
+
+                textarea.value = textarea.value.substring(0, start) + '\n• ' + textarea.value.substring(end);
+
+                textarea.selectionStart = textarea.selectionEnd = start + 3;
+            }
+        });
+    }
+
+    enableBulletBehavior('responsibilities');
+    enableBulletBehavior('collaborators');
+</script>
 </body>
 </html>

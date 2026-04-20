@@ -39,12 +39,21 @@ public class UseCaseService {
     }
 
     //US8 - UPDATE
-    public void updateUseCase(Long id, String name, String actors) {
+    public void updateUseCase(Long id,
+                              String name,
+                              String actors,
+                              String preconditions,
+                              String mainFlow,
+                              String postconditions) {
+
         UseCase uc = useCaseRepository.findById(id).orElse(null);
 
         if (uc != null) {
             uc.setName(name);
             uc.setActors(actors);
+            uc.setPreconditions(preconditions);
+            uc.setMainFlow(mainFlow);
+            uc.setPostconditions(postconditions);
             useCaseRepository.save(uc);
         }
     }
