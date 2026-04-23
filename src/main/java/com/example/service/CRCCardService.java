@@ -70,6 +70,10 @@ public class CRCCardService {
         if (collaborators != null && !collaborators.isBlank()) {
             card.setCollaborators(collaborators);
         }
+
+        if (useCase != null) {
+            card.setUseCase(useCase);
+        }
         crcCardRepository.save(card);
     }
 

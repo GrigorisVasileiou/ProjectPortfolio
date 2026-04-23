@@ -75,6 +75,7 @@ public class CRCCardController {
 
         model.addAttribute("project", project);
         model.addAttribute("cards", crcCardService.getByProject(project));
+        model.addAttribute("usecases", useCaseService.getByProject(project));
 
         return "manageCRCCards";
     }
@@ -88,21 +89,19 @@ public class CRCCardController {
             @RequestParam(required = false) String collaborators,
             @RequestParam(required = false) Long useCaseId
     ) {
-
-        Project project = crcCardService.getById(id).getProject();
-
-        UseCase useCase = null;
-        if (useCaseId != null) {
-            useCase = useCaseService.getById(useCaseId);
-        }
-
         CRCCard card = crcCardService.getById(id);
+        Project project = crcCardService.getById(id).getProject();
 
         card.setClassName(className);
         card.setResponsibilities(responsibilities);
         card.setCollaborators(collaborators);
-        card.setUseCase(useCase);
+        //card.setUseCase(useCase);
 
+        //UseCase useCase = null;
+        if (useCaseId != null) {
+            UseCase useCase = useCaseService.getById(useCaseId);
+            card.setUseCase(useCase);
+        }
         crcCardService.save(card);
 
         return "redirect:/crc/" + project.getId();
@@ -115,8 +114,7 @@ public class CRCCardController {
 
         model.addAttribute("card", card);
         model.addAttribute("project", card.getProject());
-        model.addAttribute("usecases",
-                useCaseService.getByProject(card.getProject()));
+        model.addAttribute("usecases", useCaseService.getByProject(card.getProject()));
 
         return "editCRCCard";
     }

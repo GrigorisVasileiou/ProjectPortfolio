@@ -151,7 +151,7 @@
             margin-top: 10px;
         }
 
-        input[type="text"], textarea {
+        input[type="text"], textarea, select {
             padding: 5px;
             margin: 5px 0;
             border-radius: 5px;
@@ -163,6 +163,12 @@
             resize: none;
             height: 60px;
         }
+
+        select:focus {
+            outline: none;
+            box-shadow: 0 0 8px rgba(0,255,204,0.5);
+        }
+
     </style>
 </head>
 
@@ -224,7 +230,9 @@
                              data-name=${card.className},
                              data-resp=${card.responsibilities},
                              data-collab=${card.collaborators},
-                             data-index=${iterStat.count}"
+                             data-index=${iterStat.count},
+                             data-ucid=${card.useCase != null ? card.useCase.id : ''},
+                             data-ucname=${card.useCase != null ? card.useCase.name : ''}"
                     onclick="showUpdateForm(this)">
                 Update
             </button>
@@ -256,6 +264,15 @@
                 <textarea name="collaborators" id="updateCollab" class="bullet-box"></textarea>
             </label>
 
+            <!-- Select new use case -->
+            <label class="label">Linked Use Case:</label>
+            <select name="useCaseId" id="updateUseCaseSelect">
+                <option th:each="uc : ${usecases}"
+                        th:value="${uc.id}"
+                        th:text="${uc.name}">
+                </option>
+            </select>
+
             <button type="button" class="btn-cancel" onclick="hideUpdateForm()">Cancel</button>
 
             <button class="btn">Update</button>
@@ -272,8 +289,13 @@
         document.getElementById('updateName').value = button.dataset.name;
         document.getElementById('updateResp').value = button.dataset.resp;
         document.getElementById('updateCollab').value = button.dataset.collab;
-
         document.getElementById('updateTitle').innerText = button.dataset.index;
+        const select = document.getElementById('updateUseCaseSelect');
+        const ucid = button.dataset.ucid;
+
+        if (ucid) {
+            select.value = ucid;
+        }
     }
 
     function hideUpdateForm() {
@@ -283,6 +305,9 @@
         document.getElementById('updateName').value = '';
         document.getElementById('updateResp').value = '';
         document.getElementById('updateCollab').value = '';
+        document.getElementById('updateUseCaseId').value = '';
+        document.getElementById('updateUseCaseName').value = '';
+        document.getElementById('updateUseCaseSelect').value = '';
     }
 </script>
 
