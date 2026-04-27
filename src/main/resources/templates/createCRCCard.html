@@ -181,14 +181,18 @@
             <label class="label">Collaborators</label>
             <textarea id="collaborators" name="collaborators" class="bullet-box"></textarea>
 
-            <label class="label">Use Case</label>
-            <select name="useCaseId">
-                <option value="">None</option>
-                <option th:each="uc : ${usecases}"
-                        th:value="${uc.id}"
-                        th:text="${uc.name}">
-                </option>
-            </select>
+            <label class="label">Use Cases</label>
+
+            <div style="margin-top:10px;">
+                <div th:each="uc : ${usecases}" style="margin-bottom:8px;">
+                    <input type="checkbox"
+                           name="useCaseIds"
+                           th:value="${uc.id}"
+                           id="uc_create_${uc.id}">
+                    <label th:for="'uc_create_' + ${uc.id}"
+                           th:text="${uc.name}"></label>
+                </div>
+            </div>
 
             <button class="btn" type="submit">Create CRC Card</button>
         </form>

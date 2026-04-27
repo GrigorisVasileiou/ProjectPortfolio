@@ -7,6 +7,7 @@ import com.example.repository.CRCCardRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -29,14 +30,15 @@ class CRCCardServiceTest {
     @Test
     void shouldCreateCard() {
         Project project = new Project();
-        UseCase useCase = new UseCase();
+        //UseCase useCases = new UseCase();
+        List<UseCase> useCases = Arrays.asList(new UseCase());
 
         crcCardService.createCard(
                 "User",
                 "Login responsibility",
                 "Database",
                 project,
-                useCase
+                useCases
         );
         verify(crcCardRepository, times(1)).save(any(CRCCard.class));
     }
@@ -88,7 +90,7 @@ class CRCCardServiceTest {
                 new CRCCard(),
                 new CRCCard()
         );
-        when(crcCardRepository.findByUseCase(useCase)).thenReturn(cards);
+        when(crcCardRepository.findByUseCasesContains(useCase)).thenReturn(cards);
         List<CRCCard> result = crcCardService.getByUseCase(useCase);
         assertEquals(3, result.size());
     }
@@ -133,17 +135,21 @@ class CRCCardServiceTest {
                 null,
                 null
         );
-        assertEquals("OldClass", card.getClassName());
+        assertEquals("", card.getClassName());
         assertEquals("NewResp", card.getResponsibilities());
-        assertEquals("OldCollab", card.getCollaborators());
+        assertNull(card.getCollaborators());
         verify(crcCardRepository).save(card);
     }
 
     //TEST DELETE
     @Test
     void shouldDeleteCard() {
+        CRCCard card = new CRCCard();
+        card.setId(1L);
+        card.setUseCases(new ArrayList<>()); // σημαντικό για να μην σκάσει στο clear()
+        when(crcCardRepository.findById(1L)).thenReturn(Optional.of(card));
         crcCardService.deleteCard(1L);
-        verify(crcCardRepository, times(1)).deleteById(1L);
+        verify(crcCardRepository, times(1)).delete(card);
     }
 
     //TEST SAVE METHOD

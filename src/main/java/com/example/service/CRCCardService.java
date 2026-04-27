@@ -5,6 +5,7 @@ import com.example.entity.UseCase;
 import com.example.repository.CRCCardRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -34,7 +35,12 @@ public class CRCCardService {
         card.setResponsibilities(responsibilities);
         card.setCollaborators(collaborators);
         card.setProject(project);
-        card.setUseCases(useCases);
+
+        if (useCases == null) {
+            card.setUseCases(new ArrayList<>());
+        } else {
+            card.setUseCases(new ArrayList<>(useCases));
+        }
 
         crcCardRepository.save(card);
     }
@@ -59,22 +65,15 @@ public class CRCCardService {
     ) {
         CRCCard card = getById(id);
 
-        if (className != null && !className.isBlank()) {
-            card.setClassName(className);
-        }
+        card.setClassName(className);
+        card.setResponsibilities(responsibilities);
+        card.setCollaborators(collaborators);
 
-        if (responsibilities != null && !responsibilities.isBlank()) {
-            card.setResponsibilities(responsibilities);
+        if (useCases == null) {
+            card.setUseCases(new ArrayList<>());
+        } else {
+            card.setUseCases(new ArrayList<>(useCases));
         }
-
-        if (collaborators != null && !collaborators.isBlank()) {
-            card.setCollaborators(collaborators);
-        }
-
-        if (useCases != null) {
-            card.setUseCases(useCases);
-        }
-
         crcCardRepository.save(card);
     }
 

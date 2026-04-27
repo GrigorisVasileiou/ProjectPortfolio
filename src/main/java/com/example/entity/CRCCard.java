@@ -25,7 +25,7 @@ public class CRCCard {
     @ManyToOne
     private Project project;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "crc_usecase",
             joinColumns = @JoinColumn(name = "crc_id"),

@@ -216,15 +216,17 @@
             <p>
                 <span class="label">Linked Use Cases:</span>
 
-                <div th:if="${!#lists.isEmpty(card.useCases)}">
-                    <span th:each="uc : ${card.useCases}">
-                        <span th:text="${uc.name}"></span><br/>
-                    </span>
-                </div>
+            <ul style="margin: 6px 0 12px 20px; color: white;">
 
-                <div th:if="${#lists.isEmpty(card.useCases)}">
+                <li th:if="${#lists.isEmpty(card.useCases)}">
                     None
-                </div>
+                </li>
+
+                <li th:each="uc : ${card.useCases}"
+                    th:text="${uc.name}">
+                </li>
+
+            </ul>
             </p>
 
             <!-- DELETE -->
@@ -236,12 +238,11 @@
             <!-- UPDATE BUTTON -->
             <button class="btn"
                     th:attr="data-id=${card.id},
-                             data-name=${card.className},
-                             data-resp=${card.responsibilities},
-                             data-collab=${card.collaborators},
-                             data-index=${iterStat.count},
-                             data-ucid=$!#lists.isEmpty(card.useCases) != null ? card.useCases[0].id : ''},
-                             data-ucname=${!#lists.isEmpty(card.useCases) ? card.useCases[0].name : ''}"
+                 data-name=${card.className},
+                 data-resp=${card.responsibilities},
+                 data-collab=${card.collaborators},
+                 data-index=${iterStat.count},
+                 data-ucids=${#strings.arrayJoin(card.useCases.![id], ',')}"
                     onclick="showUpdateForm(this)">
                 Update
             </button>
@@ -274,14 +275,19 @@
             </label>
 
             <!-- Select new use case -->
-            <label class="label">Linked Use Case:</label>
-            <select name="useCaseId" id="updateUseCaseSelect">
-                <option value="">None</option>
-                <option th:each="uc : ${usecases}"
-                        th:value="${uc.id}"
-                        th:text="${uc.name}">
-                </option>
-            </select>
+            <label class="label">Linked Use Cases:</label>
+            <label class="label">Use Cases</label>
+
+            <div id="updateUseCasesContainer" style="margin-top:10px;">
+                <div th:each="uc : ${usecases}" style="margin-bottom:8px;">
+                    <input type="checkbox"
+                           name="useCaseIds"
+                           th:value="${uc.id}"
+                           th:id="'uc_update_' + ${uc.id}">
+                    <label th:for="'uc_update_' + ${uc.id}"
+                           th:text="${uc.name}"></label>
+                </div>
+            </div>
 
             <button type="button" class="btn-cancel" onclick="hideUpdateForm()">Cancel</button>
 
@@ -300,12 +306,11 @@
         document.getElementById('updateResp').value = button.dataset.resp;
         document.getElementById('updateCollab').value = button.dataset.collab;
         document.getElementById('updateTitle').innerText = button.dataset.index;
-        const select = document.getElementById('updateUseCaseSelect');
-        const ucid = button.dataset.ucid;
+        const selectedIds = button.dataset.ucids ? button.dataset.ucids.split(',') : [];
 
-        if (ucid) {
-            select.value = ucid;
-        }
+        document.querySelectorAll('#updateUseCasesContainer input[type="checkbox"]').forEach(cb => {
+            cb.checked = selectedIds.includes(cb.value);
+        });
     }
 
     function hideUpdateForm() {

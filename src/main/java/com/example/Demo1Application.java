@@ -23,8 +23,8 @@ public class Demo1Application {
         return event -> {
             new Thread(() -> {
                 try {
-                    String url = "http://localhost:8080";
-                    String avastPath = "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe";
+                    String url = "http://localhost:8080/login";
+                    String avastPath = "C:\\Program Files\\AVAST Software\\Browser\\Application\\AvastBrowser.exe";
 
                     Runtime.getRuntime().exec(new String[]{avastPath, url});
                 } catch (Exception e) {
