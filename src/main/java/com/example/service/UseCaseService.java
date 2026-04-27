@@ -1,5 +1,6 @@
 package com.example.service;
 
+import com.example.entity.CRCCard;
 import com.example.entity.Project;
 import com.example.entity.UseCase;
 import com.example.repository.UseCaseRepository;
@@ -75,6 +76,17 @@ public class UseCaseService {
 
     //US10 - DELETE
     public void deleteUseCase(Long id) {
-        useCaseRepository.deleteById(id);
+
+        UseCase uc = useCaseRepository.findById(id).orElseThrow(() -> new RuntimeException("UseCase not found"));
+
+        for (CRCCard card : uc.getCrcCards()) {
+            card.getUseCases().remove(uc);
+        }
+
+        useCaseRepository.delete(uc);
+    }
+
+    public List<UseCase> getByIds(List<Long> useCaseIds) {
+        return useCaseRepository.findAllById(useCaseIds);
     }
 }

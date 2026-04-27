@@ -27,14 +27,14 @@ public class CRCCardService {
             String responsibilities,
             String collaborators,
             Project project,
-            UseCase useCase
+            List<UseCase> useCases
     ) {
         CRCCard card = new CRCCard();
         card.setClassName(className);
         card.setResponsibilities(responsibilities);
         card.setCollaborators(collaborators);
         card.setProject(project);
-        card.setUseCase(useCase);
+        card.setUseCases(useCases);
 
         crcCardRepository.save(card);
     }
@@ -55,7 +55,7 @@ public class CRCCardService {
             String className,
             String responsibilities,
             String collaborators,
-            UseCase useCase
+            List<UseCase> useCases
     ) {
         CRCCard card = getById(id);
 
@@ -71,15 +71,18 @@ public class CRCCardService {
             card.setCollaborators(collaborators);
         }
 
-        if (useCase != null) {
-            card.setUseCase(useCase);
+        if (useCases != null) {
+            card.setUseCases(useCases);
         }
+
         crcCardRepository.save(card);
     }
 
     // US14 - Delete
     public void deleteCard(Long id) {
-        crcCardRepository.deleteById(id);
+        CRCCard card = getById(id);
+        card.getUseCases().clear();
+        crcCardRepository.delete(card);
     }
 
     public void save(CRCCard card) {

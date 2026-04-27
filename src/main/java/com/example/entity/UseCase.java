@@ -23,6 +23,6 @@ public class UseCase {
     @ManyToOne
     private Project project;
 
-    @OneToMany(mappedBy = "useCase")
+    @ManyToMany(mappedBy = "useCases")
     private List<CRCCard> crcCards;
 }

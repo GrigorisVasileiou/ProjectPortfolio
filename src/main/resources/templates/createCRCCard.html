@@ -182,7 +182,8 @@
             <textarea id="collaborators" name="collaborators" class="bullet-box"></textarea>
 
             <label class="label">Use Case</label>
-            <select name="useCaseId" required>
+            <select name="useCaseId">
+                <option value="">None</option>
                 <option th:each="uc : ${usecases}"
                         th:value="${uc.id}"
                         th:text="${uc.name}">

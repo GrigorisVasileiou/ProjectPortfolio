@@ -267,6 +267,7 @@
             <!-- Select new use case -->
             <label class="label">Linked Use Case:</label>
             <select name="useCaseId" id="updateUseCaseSelect">
+                <option value="">None</option>
                 <option th:each="uc : ${usecases}"
                         th:value="${uc.id}"
                         th:text="${uc.name}">

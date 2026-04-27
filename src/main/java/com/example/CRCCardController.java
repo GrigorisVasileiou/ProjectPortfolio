@@ -10,6 +10,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Controller
 public class CRCCardController {
 
@@ -46,14 +49,15 @@ public class CRCCardController {
             @RequestParam String responsibilities,
             @RequestParam String collaborators,
             @RequestParam Long projectId,
-            @RequestParam(required = false) Long useCaseId
+            @RequestParam(required = false) List<Long> useCaseIds
     ) {
 
         Project project = projectService.getById(projectId);
 
-        UseCase useCase = null;
-        if (useCaseId != null) {
-            useCase = useCaseService.getById(useCaseId);
+        List<UseCase> useCases = new ArrayList<>();
+
+        if (useCaseIds != null && !useCaseIds.isEmpty()) {
+            useCases = useCaseService.getByIds(useCaseIds);
         }
 
         crcCardService.createCard(
@@ -61,7 +65,7 @@ public class CRCCardController {
                 responsibilities,
                 collaborators,
                 project,
-                useCase
+                useCases
         );
 
         return "redirect:/crc/create/" + projectId;
@@ -87,21 +91,22 @@ public class CRCCardController {
             @RequestParam(required = false) String className,
             @RequestParam(required = false) String responsibilities,
             @RequestParam(required = false) String collaborators,
-            @RequestParam(required = false) Long useCaseId
+            @RequestParam(required = false) List<Long> useCaseIds
     ) {
         CRCCard card = crcCardService.getById(id);
         Project project = crcCardService.getById(id).getProject();
 
+        List<UseCase> useCases = new ArrayList<>();
+
+        if (useCaseIds != null && !useCaseIds.isEmpty()) {
+            useCases = useCaseService.getByIds(useCaseIds);
+        }
+
         card.setClassName(className);
         card.setResponsibilities(responsibilities);
         card.setCollaborators(collaborators);
-        //card.setUseCase(useCase);
 
-        //UseCase useCase = null;
-        if (useCaseId != null) {
-            UseCase useCase = useCaseService.getById(useCaseId);
-            card.setUseCase(useCase);
-        }
+        card.setUseCases(useCases);
         crcCardService.save(card);
 
         return "redirect:/crc/" + project.getId();
