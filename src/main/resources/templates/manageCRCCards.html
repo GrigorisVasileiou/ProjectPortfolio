@@ -213,9 +213,18 @@
                 <div class="multiline-box" th:text="${card.collaborators}"></div>
             </p>
 
-            <p th:if="${card.useCase != null}">
-                <span class="label">Linked Use Case:</span>
-                <span th:text="${card.useCase.name}"></span>
+            <p>
+                <span class="label">Linked Use Cases:</span>
+
+                <div th:if="${!#lists.isEmpty(card.useCases)}">
+                    <span th:each="uc : ${card.useCases}">
+                        <span th:text="${uc.name}"></span><br/>
+                    </span>
+                </div>
+
+                <div th:if="${#lists.isEmpty(card.useCases)}">
+                    None
+                </div>
             </p>
 
             <!-- DELETE -->
@@ -231,8 +240,8 @@
                              data-resp=${card.responsibilities},
                              data-collab=${card.collaborators},
                              data-index=${iterStat.count},
-                             data-ucid=${card.useCase != null ? card.useCase.id : ''},
-                             data-ucname=${card.useCase != null ? card.useCase.name : ''}"
+                             data-ucid=$!#lists.isEmpty(card.useCases) != null ? card.useCases[0].id : ''},
+                             data-ucname=${!#lists.isEmpty(card.useCases) ? card.useCases[0].name : ''}"
                     onclick="showUpdateForm(this)">
                 Update
             </button>
@@ -306,8 +315,6 @@
         document.getElementById('updateName').value = '';
         document.getElementById('updateResp').value = '';
         document.getElementById('updateCollab').value = '';
-        document.getElementById('updateUseCaseId').value = '';
-        document.getElementById('updateUseCaseName').value = '';
         document.getElementById('updateUseCaseSelect').value = '';
     }
 </script>

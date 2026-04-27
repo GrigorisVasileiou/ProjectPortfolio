@@ -46,7 +46,7 @@ public class CRCCardService {
 
     // US13 - Get cards by use case
     public List<CRCCard> getByUseCase(UseCase useCase) {
-        return crcCardRepository.findByUseCase(useCase);
+        return crcCardRepository.findByUseCasesContains(useCase);
     }
 
     // US12 - Update

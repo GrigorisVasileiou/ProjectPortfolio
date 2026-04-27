@@ -11,5 +11,5 @@ public interface CRCCardRepository extends JpaRepository<CRCCard, Long> {
 
     List<CRCCard> findByProject(Project project);
 
-    List<CRCCard> findByUseCase(UseCase useCase);
+    List<CRCCard> findByUseCasesContains(UseCase useCase);
 }
