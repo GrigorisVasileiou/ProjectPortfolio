@@ -35,7 +35,14 @@ class UseCaseServiceTest {
                 project
         );
 
-        verify(useCaseRepository, times(1)).save(any(UseCase.class));
+        verify(useCaseRepository).save(argThat(uc ->
+                uc.getName().equals("Login") &&
+                        uc.getActors().equals("User") &&
+                        uc.getPreconditions().equals("None") &&
+                        uc.getMainFlow().equals("User logs in") &&
+                        uc.getPostconditions().equals("Success") &&
+                        uc.getProject() == project
+        ));
     }
 
     //TEST GET BY ID (SUCCESS)
@@ -67,7 +74,7 @@ class UseCaseServiceTest {
         List<UseCase> list = Arrays.asList(new UseCase(), new UseCase());
         when(useCaseRepository.findByProject(project)).thenReturn(list);
         List<UseCase> result = useCaseService.getByProject(project);
-        assertEquals(2, result.size());
+        assertSame(list, result);
     }
 
     //TEST UPDATE (exists)
@@ -77,9 +84,19 @@ class UseCaseServiceTest {
         uc.setId(1L);
 
         when(useCaseRepository.findById(1L)).thenReturn(Optional.of(uc));
-        useCaseService.updateUseCase(1L, "New Name", "New Actors");
+        useCaseService.updateUseCase(
+                1L,
+                "New Name",
+                "New Actors",
+                "pre",
+                "main",
+                "post"
+        );
         assertEquals("New Name", uc.getName());
         assertEquals("New Actors", uc.getActors());
+        assertEquals("pre", uc.getPreconditions());
+        assertEquals("main", uc.getMainFlow());
+        assertEquals("post", uc.getPostconditions());
         verify(useCaseRepository).save(uc);
     }
 
@@ -87,7 +104,14 @@ class UseCaseServiceTest {
     @Test
     void shouldNotUpdateIfUseCaseNotFound() {
         when(useCaseRepository.findById(1L)).thenReturn(Optional.empty());
-        useCaseService.updateUseCase(1L, "New Name", "Actors");
+        useCaseService.updateUseCase(
+                1L,
+                "New Name",
+                "Actors",
+                "pre",
+                "main",
+                "post"
+        );
         verify(useCaseRepository, never()).save(any());
     }
 
@@ -102,14 +126,44 @@ class UseCaseServiceTest {
         when(useCaseRepository.findById(1L)).thenReturn(Optional.of(uc));
         useCaseService.updateUseCasePartial(1L, "New", "");
         assertEquals("New", uc.getName());
-        assertEquals("OldActors", uc.getActors()); // δεν αλλάζει
+        assertEquals("OldActors", uc.getActors());
         verify(useCaseRepository).save(uc);
     }
 
-    //TEST DELETE
+    // TEST DELETE (SUCCESS)
     @Test
     void shouldDeleteUseCase() {
+        UseCase uc = new UseCase();
+        uc.setId(1L);
+        uc.setCrcCards(new ArrayList<>());
+
+        when(useCaseRepository.findById(1L)).thenReturn(Optional.of(uc));
+
         useCaseService.deleteUseCase(1L);
-        verify(useCaseRepository, times(1)).deleteById(1L);
+
+        verify(useCaseRepository).delete(uc);
+    }
+
+    // TEST DELETE (FAIL)
+    @Test
+    void shouldThrowExceptionWhenDeletingNonExistingUseCase() {
+        when(useCaseRepository.findById(1L)).thenReturn(Optional.empty());
+
+        assertThrows(RuntimeException.class, () -> {
+            useCaseService.deleteUseCase(1L);
+        });
+    }
+
+    // TEST GET BY IDS
+    @Test
+    void shouldReturnUseCasesByIds() {
+        List<Long> ids = Arrays.asList(1L, 2L);
+        List<UseCase> list = Arrays.asList(new UseCase(), new UseCase());
+
+        when(useCaseRepository.findAllById(ids)).thenReturn(list);
+
+        List<UseCase> result = useCaseService.getByIds(ids);
+
+        assertEquals(2, result.size());
     }
 }
