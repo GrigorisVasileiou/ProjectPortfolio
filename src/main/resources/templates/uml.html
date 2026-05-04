@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>UML Script Viewer</title>
+</head>
+
+<body>
+
+<h2>UML Script Generator</h2>
+
+<!-- Project ID -->
+<input type="hidden" id="projectId" th:value="${projectId}">
+
+<br><br>
+
+<!-- BUTTONS -->
+<button onclick="loadUseCase()">Show Use Case Script</button>
+<button onclick="loadCRC()">Show CRC Script</button>
+
+<h3>PlantUML Script</h3>
+
+<!-- SCRIPT OUTPUT -->
+<pre id="script"></pre>
+
+<script>
+    /*
+        LOAD USE CASE SCRIPT
+    */
+    async function loadUseCase() {
+
+        const projectId = document.getElementById("projectId").value;
+
+        console.log("Loading Use Case script for:", projectId);
+
+        const res = await fetch(`/api/diagram/usecases/${projectId}`);
+        const text = await res.text();
+
+        console.log("Use Case Script:", text);
+
+        document.getElementById("script").innerText = text;
+    }
+
+    /*
+        LOAD CRC SCRIPT
+    */
+    async function loadCRC() {
+
+        const projectId = document.getElementById("projectId").value;
+
+        console.log("Loading CRC script for:", projectId);
+
+        const res = await fetch(`/api/diagram/crc/${projectId}`);
+        const text = await res.text();
+
+        console.log("CRC Script:", text);
+
+        document.getElementById("script").innerText = text;
+    }
+</script>
+
+</body>
+</html>

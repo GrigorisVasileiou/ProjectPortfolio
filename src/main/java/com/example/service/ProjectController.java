@@ -63,4 +63,10 @@ public class ProjectController {
         model.addAttribute("cards", crcCardService.getByProject(project));
         return "project-details";
     }
+
+    @GetMapping("/uml")
+    public String umlPage(@RequestParam Long projectId, Model model) {
+        model.addAttribute("projectId", projectId);
+        return "uml";
+    }
 }
