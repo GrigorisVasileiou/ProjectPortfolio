@@ -120,27 +120,6 @@ public class HelloController {
         return "hello";
     }
 
-    /*@PostMapping("/update-profile")
-    public String updateProfile(@RequestParam String username,
-                                @RequestParam String email,
-                                @AuthenticationPrincipal org.springframework.security.core.userdetails.User currentUser,
-                                Model model) {
-
-        // Παίρνουμε τον χρήστη από τη βάση
-        User userEntity = userService.findByUsername(currentUser.getUsername());
-
-        // Ενημέρωση στοιχείων
-        userEntity.setUsername(username);
-        userEntity.setEmail(email);
-
-        userService.save(userEntity);
-
-        model.addAttribute("success", "Profile updated successfully!");
-        model.addAttribute("user", userEntity);
-
-        return "profile";
-    }*/
-
     @GetMapping("/profile")
     public String profile(@AuthenticationPrincipal org.springframework.security.core.userdetails.User currentUser,
                           Model model) {
@@ -149,5 +128,10 @@ public class HelloController {
 
         model.addAttribute("user", userEntity);
         return "profile";
+    }
+
+    @GetMapping("/collaborators")
+    public String collaborators() {
+        return "collab";
     }
 }

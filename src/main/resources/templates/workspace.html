@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+</html>
 <body>
 <style>
     body{
@@ -39,7 +39,7 @@
     gap: 10px;
     }
 
-    .profile-btn, .logout-btn {
+    .profile-btn, .logout-btn, .collab-btn {
         font-size: 18px;
         padding: 13px 23px;
         background-color: red;
@@ -57,7 +57,8 @@
     }
 
     .profile-btn:hover,
-    .logout-btn:hover {
+    .logout-btn:hover,
+     .collab-btn:hover{
         background-color: darkred;
         transform: scale(1.05);
     }
@@ -106,6 +107,12 @@
     <a href="/profile">
         <button type="button" class="profile-btn">
             👤 Profile
+        </button>
+    </a>
+
+    <a href="/collaborators">
+        <button type="button" class="collab-btn">
+            👥 Collaborators
         </button>
     </a>
 

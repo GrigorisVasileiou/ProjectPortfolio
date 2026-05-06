@@ -12,7 +12,7 @@
         font-family: Arial;
         color: white;
 
-        background-image: url('/images/project_details.png');
+        background-image: url('/images/uml.png');
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
@@ -75,6 +75,10 @@
     .btn {
         display: inline-block;
         padding: 10px 15px;
+        width: 250px;
+        margin: 10px auto;
+        font-size: 16px;
+        padding: 14px;
         background: limegreen;
         color: black;
         text-decoration: none;
@@ -115,13 +119,30 @@
 <br><br>
 
 <!-- BUTTONS -->
-<button onclick="loadUseCase()">Show Use Case Script</button>
-<button onclick="loadCRC()">Show CRC Script</button>
+    <div class="card" style="text-align:center;">
 
-    <div class="title">PlantUML Script</div>
+        <button class="btn" onclick="loadUseCase()">
+            📈 Show Use Case Script
+        </button>
+
+        <button class="btn" onclick="loadCRC()">
+            📈 Show CRC Script
+        </button>
+    </div>
 
 <!-- SCRIPT OUTPUT -->
-<pre id="script"></pre>
+    <div class="card" id="scriptCard" style="display:none;">
+        <div class="label">PlantUML Script</div>
+        <pre id="script" style="
+        background:#0f172a;
+        padding:15px;
+        border-radius:8px;
+        white-space:pre-wrap;
+        color:white;
+        line-height:1.6;
+        margin-top:10px;
+    "></pre>
+    </div>
 
 <script>
     /*
@@ -138,6 +159,7 @@
 
         console.log("Use Case Script:", text);
 
+        document.getElementById("scriptCard").style.display = "block";
         document.getElementById("script").innerText = text;
     }
 
@@ -155,6 +177,7 @@
 
         console.log("CRC Script:", text);
 
+        document.getElementById("scriptCard").style.display = "block";
         document.getElementById("script").innerText = text;
     }
 </script>
