@@ -135,7 +135,7 @@
             box-shadow: 0 0 8px rgba(0,255,204,0.5);
         }
 
-        input, textarea, select {
+        input[type="text"], textarea, select {
             width: 100%;
             padding: 8px;
             margin-top: 5px;
@@ -182,16 +182,18 @@
             <textarea id="collaborators" name="collaborators" class="bullet-box"></textarea>
 
             <label class="label">Use Cases</label>
+            <div th:each="uc : ${usecases}" style="margin-bottom:10px;">
 
-            <div style="margin-top:10px;">
-                <div th:each="uc : ${usecases}" style="margin-bottom:8px;">
-                    <input type="checkbox"
-                           name="useCaseIds"
-                           th:value="${uc.id}"
-                           id="uc_create_${uc.id}">
-                    <label th:for="'uc_create_' + ${uc.id}"
-                           th:text="${uc.name}"></label>
-                </div>
+                <input type="checkbox"
+                       name="useCaseIds"
+                       th:value="${uc.id}"
+                       th:id="'uc_create_' + ${uc.id}">
+
+                <br>
+
+                <label th:for="'uc_create_' + ${uc.id}"
+                       th:text="${uc.name}"></label>
+
             </div>
 
             <button class="btn" type="submit">Create CRC Card</button>
