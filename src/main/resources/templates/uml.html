@@ -105,7 +105,7 @@
     <h2>Dashboard</h2>
     <a href="/workspace">🏠 Home</a>
     <a href="/profile">👤 Profile</a>
-    <a href="/projects">📁 My Projects</a>
+    <a th:href="@{/projects/{id}(id=${projectId})}">📁 Project Details</a>
 </div>
 
 <!-- MAIN -->
