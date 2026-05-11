@@ -8,7 +8,6 @@ import java.util.Base64;
 @Service
 public class PlantUMLService {
 
-    // Encode PlantUML text to URL-safe format
     public static String encode(String text) {
         return Base64.getEncoder()
                 .encodeToString(text.getBytes(StandardCharsets.UTF_8));
