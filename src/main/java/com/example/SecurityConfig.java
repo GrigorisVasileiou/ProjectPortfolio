@@ -35,8 +35,8 @@ public class SecurityConfig {
                 )
                 .userDetailsService(userDetailsService)
                 .formLogin(form -> form
-                        .loginPage("/login")        // σε ποιο URL εμφανίζεται η φόρμα login
-                        .loginProcessingUrl("/login") // URL που επεξεργάζεται το login
+                        .loginPage("/login")        // σε ποιο URL εμφανιζεται η φόρμα login
+                        .loginProcessingUrl("/login") // URL που επεξεργαζεται το login
                         .defaultSuccessUrl("/workspace", true)
                         .failureUrl("/hello?error=true")
                         .permitAll()

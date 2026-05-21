@@ -2,6 +2,7 @@ package com.example.service;
 
 import com.example.entity.CRCCard;
 import com.example.entity.Project;
+import com.example.entity.UseCase;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -24,6 +25,13 @@ public class CRCDiagramGeneratorService {
 
             sb.append("  Collaborators:\n");
             sb.append("  ").append(card.getCollaborators()).append("\n");
+
+            if (card.getUseCases() != null && !card.getUseCases().isEmpty()) {
+                sb.append("  Linked Use Cases:\n");
+                for (UseCase uc : card.getUseCases()) {
+                    sb.append("    - ").append(uc.getName()).append("\n");
+                }
+            }
 
             sb.append("}\n\n");
         }

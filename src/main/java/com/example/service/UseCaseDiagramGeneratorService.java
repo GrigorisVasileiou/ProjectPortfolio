@@ -14,21 +14,37 @@ public class UseCaseDiagramGeneratorService {
         sb.append("@startuml\n\n");
         sb.append("left to right direction\n\n");
 
-        sb.append("actor User\n\n");
-
+        // for all the use cases of the project
         for (UseCase uc : project.getUseCases()) {
 
             String useCaseName = uc.getName().replace(" ", "_");
 
-            sb.append("usecase ").append(useCaseName)
-                    .append(" as \"").append(uc.getName()).append("\"\n");
+            // use case declaration first
+            sb.append("usecase ").append(useCaseName).append(" as \"").append(uc.getName()).append("\"\n\n");
 
-            if (uc.getActors() != null && !uc.getActors().isEmpty()) {
-                sb.append("User --> ").append(useCaseName).append("\n");
+            // actor
+            if (uc.getActors() != null && !uc.getActors().isBlank()) {
+
+                String actorName = uc.getActors().replace(" ", "_");
+
+                sb.append("actor ").append(actorName).append("\n");
+
+                sb.append(actorName).append(" --> ").append(useCaseName).append("\n\n");
             }
+
+            // note
+            sb.append("note right of ").append(useCaseName).append("\n");
+
+            sb.append("Preconditions: ").append(uc.getPreconditions()).append("\n");
+
+            sb.append("Main Flow: ").append(uc.getMainFlow()).append("\n");
+
+            sb.append("Postconditions: ").append(uc.getPostconditions()).append("\n");
+
+            sb.append("end note\n\n");
         }
 
-        sb.append("\n@enduml");
+        sb.append("@enduml");
 
         return sb.toString();
     }
