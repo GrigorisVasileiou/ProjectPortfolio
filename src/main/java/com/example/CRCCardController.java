@@ -59,7 +59,6 @@ public class CRCCardController {
         if (useCaseIds != null && !useCaseIds.isEmpty()) {
             useCases = useCaseService.getByIds(useCaseIds);
         }
-
         crcCardService.createCard(
                 className,
                 responsibilities,
@@ -67,11 +66,10 @@ public class CRCCardController {
                 project,
                 useCases
         );
-
         return "redirect:/crc/create/" + projectId;
     }
 
-    // Προβολή όλων των CRC cards ενός project
+    // CRC card view
     @GetMapping("/crc/{projectId}")
     public String manageCards(@PathVariable Long projectId, Model model) {
 

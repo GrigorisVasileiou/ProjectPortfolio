@@ -12,6 +12,6 @@ class Demo1ApplicationTests {
 
     @Test
     void contextLoads() {
-        System.out.println("Το Spring Boot ξεκίνησε σωστά!");
+        System.out.println("The app is working!");
     }
 }

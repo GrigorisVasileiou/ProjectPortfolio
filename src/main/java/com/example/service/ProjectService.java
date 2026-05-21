@@ -17,7 +17,6 @@ public class ProjectService {
         project.setName(name);
         project.setDescription(description);
         project.setUser(user);
-
         projectRepository.save(project);
     }
 

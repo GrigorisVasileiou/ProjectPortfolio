@@ -70,19 +70,16 @@ public class UseCaseService {
         if (actors != null && !actors.isBlank()) {
             uc.setActors(actors);
         }
-
         useCaseRepository.save(uc);
     }
 
     //US10 - DELETE
     public void deleteUseCase(Long id) {
-
         UseCase uc = useCaseRepository.findById(id).orElseThrow(() -> new RuntimeException("UseCase not found"));
 
         for (CRCCard card : uc.getCrcCards()) {
             card.getUseCases().remove(uc);
         }
-
         useCaseRepository.delete(uc);
     }
 

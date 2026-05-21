@@ -92,14 +92,12 @@ public class HelloController {
             model.addAttribute("error", "User not found!");
             return "hello";
         }
-
         if (username != null && !username.isEmpty()) {
             userEntity.setUsername(username);
         }
         if (email != null && !email.isEmpty()) {
             userEntity.setEmail(email);
         }
-
         if (oldPassword != null && newPassword != null &&
                 !oldPassword.isEmpty() && !newPassword.isEmpty()) {
             if (!passwordEncoder.matches(oldPassword, userEntity.getPassword())) {
@@ -107,25 +105,19 @@ public class HelloController {
                 model.addAttribute("user", userEntity);
                 return "hello";
             }
-            //userService.saveRawPassword(userEntity, newPassword);
             userEntity.setPassword(passwordEncoder.encode(newPassword));
             userService.save(userEntity);
         }
-
         userService.saveWithoutEncoding(userEntity);
-
         model.addAttribute("success", "Profile updated successfully!");
         model.addAttribute("user", userEntity);
-
         return "hello";
     }
 
     @GetMapping("/profile")
     public String profile(@AuthenticationPrincipal org.springframework.security.core.userdetails.User currentUser,
                           Model model) {
-
         User userEntity = userService.findByUsername(currentUser.getUsername());
-
         model.addAttribute("user", userEntity);
         return "profile";
     }

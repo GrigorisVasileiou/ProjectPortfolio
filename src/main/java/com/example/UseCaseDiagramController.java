@@ -27,9 +27,7 @@ public class UseCaseDiagramController {
 
         Project project = projectRepository.findById(projectId)
                 .orElseThrow();
-
         String script = service.generatePlantUML(project);
-
         return plantUMLService.toPlantUMLImageUrl(script);
     }
 

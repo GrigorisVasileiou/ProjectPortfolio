@@ -18,9 +18,7 @@ class UserServiceTest {
     @Test
     void testRegisterUser() {
         when(passwordEncoder.encode("1234")).thenReturn("encoded1234");
-
         userService.registerUser("stelios", "test@mail.com", "1234");
-
         verify(userRepository).save(any(User.class));
     }
 
@@ -30,9 +28,7 @@ class UserServiceTest {
         user.setUsername("stelios");
 
         when(userRepository.findByUsername("stelios")).thenReturn(user);
-
         User result = userService.findByUsername("stelios");
-
         assertNotNull(result);
         assertEquals("stelios", result.getUsername());
     }
@@ -42,9 +38,7 @@ class UserServiceTest {
         User user = new User();
 
         when(passwordEncoder.encode("1234")).thenReturn("encoded1234");
-
         userService.saveRawPassword(user, "1234");
-
         assertEquals("encoded1234", user.getPassword());
         verify(userRepository).save(user);
     }

@@ -21,7 +21,7 @@ public class UseCaseController {
         this.projectService = projectService;
     }
 
-    // ✅ CREATE (US7)
+    //US7 Create
     @PostMapping("/usecases/create")
     public String createUseCase(
             @RequestParam String name,
@@ -32,7 +32,6 @@ public class UseCaseController {
             @RequestParam Long projectId
     ) {
         Project project = projectService.getById(projectId);
-
         useCaseService.createUseCase(name, actors, preconditions, mainFlow, postconditions, project);
 
         return "redirect:/usecases/create/" + project.getId();
@@ -45,7 +44,7 @@ public class UseCaseController {
         return "createUseCase";
     }
 
-    // ✅ GET (US9)
+    //US9 View
     @GetMapping("/usecases/{projectId}")
     public String getUseCases(@PathVariable Long projectId, Model model) {
 
@@ -57,7 +56,7 @@ public class UseCaseController {
         return "manageUseCases";
     }
 
-    // ✅ UPDATE (US8)
+    //US8 Update
     @PostMapping("/usecases/update")
     public String updateUseCase(
             @RequestParam Long id,
@@ -79,7 +78,7 @@ public class UseCaseController {
         return "redirect:/usecases/" + projectId;
     }
 
-    // ✅ DELETE (US10)
+    //US10 Delete
     @PostMapping("/usecases/delete")
     public String deleteUseCase(@RequestParam Long id) {
         Long projectId = useCaseService.getById(id).getProject().getId();

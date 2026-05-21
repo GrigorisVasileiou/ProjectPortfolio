@@ -138,9 +138,7 @@ class UseCaseServiceTest {
         uc.setCrcCards(new ArrayList<>());
 
         when(useCaseRepository.findById(1L)).thenReturn(Optional.of(uc));
-
         useCaseService.deleteUseCase(1L);
-
         verify(useCaseRepository).delete(uc);
     }
 
@@ -148,7 +146,6 @@ class UseCaseServiceTest {
     @Test
     void shouldThrowExceptionWhenDeletingNonExistingUseCase() {
         when(useCaseRepository.findById(1L)).thenReturn(Optional.empty());
-
         assertThrows(RuntimeException.class, () -> {
             useCaseService.deleteUseCase(1L);
         });
@@ -161,9 +158,7 @@ class UseCaseServiceTest {
         List<UseCase> list = Arrays.asList(new UseCase(), new UseCase());
 
         when(useCaseRepository.findAllById(ids)).thenReturn(list);
-
         List<UseCase> result = useCaseService.getByIds(ids);
-
         assertEquals(2, result.size());
     }
 }

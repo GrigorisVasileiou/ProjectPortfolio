@@ -3,15 +3,12 @@
 <head>
     <title>UML Script Viewer</title>
 </head>
-
 <body>
-
 <style>
     body {
         margin: 0;
         font-family: Arial;
         color: white;
-
         background-image: url('/images/uml.png');
         background-size: cover;
         background-position: center;
@@ -97,7 +94,6 @@
         color: limegreen;
         font-weight: bold;
     }
-
 </style>
 
 <!-- SIDEBAR -->
@@ -120,7 +116,6 @@
 
 <!-- BUTTONS -->
     <div class="card" style="text-align:center;">
-
         <button class="btn" onclick="loadUseCase()">
             📈 Show Use Case Script
         </button>
@@ -145,9 +140,7 @@
     </div>
 
 <script>
-    /*
-        LOAD USE CASE SCRIPT
-    */
+    /*LOAD USE CASE SCRIPT*/
     async function loadUseCase() {
 
         const projectId = document.getElementById("projectId").value;
@@ -163,9 +156,7 @@
         document.getElementById("script").innerText = text;
     }
 
-    /*
-        LOAD CRC SCRIPT
-    */
+    /*LOAD CRC SCRIPT*/
     async function loadCRC() {
 
         const projectId = document.getElementById("projectId").value;
@@ -181,8 +172,6 @@
         document.getElementById("script").innerText = text;
     }
 </script>
-
-</div> <!-- close main -->
-
+</div>
 </body>
 </html>

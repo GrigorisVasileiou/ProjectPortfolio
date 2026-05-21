@@ -6,9 +6,7 @@ import com.example.repository.ProjectRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 import org.mockito.Mockito;
-
 import java.util.*;
-
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
@@ -29,7 +27,6 @@ class ProjectServiceTest {
         user.setId(1L);
 
         projectService.createProject("Test", "Desc", user);
-
         verify(projectRepository, times(1)).save(any(Project.class));
     }
 
@@ -38,9 +35,7 @@ class ProjectServiceTest {
         List<Project> mockProjects = Arrays.asList(new Project(), new Project());
 
         when(projectRepository.findAll()).thenReturn(mockProjects);
-
         List<Project> result = projectService.getAllProjects();
-
         assertEquals(2, result.size());
     }
 
@@ -54,9 +49,7 @@ class ProjectServiceTest {
         project.setUser(user);
 
         when(projectRepository.findById(10L)).thenReturn(Optional.of(project));
-
         projectService.deleteProject(10L, user);
-
         verify(projectRepository, times(1)).delete(project);
     }
 
@@ -73,9 +66,7 @@ class ProjectServiceTest {
         project.setUser(owner);
 
         when(projectRepository.findById(10L)).thenReturn(Optional.of(project));
-
         projectService.deleteProject(10L, otherUser);
-
         verify(projectRepository, never()).delete(any());
     }
 
@@ -83,11 +74,8 @@ class ProjectServiceTest {
     void shouldReturnProjectsByUser() {
         User user = new User();
         List<Project> projects = Arrays.asList(new Project(), new Project());
-
         when(projectRepository.findByUser(user)).thenReturn(projects);
-
         List<Project> result = projectService.getProjectsByUser(user);
-
         assertEquals(2, result.size());
     }
 
@@ -97,9 +85,7 @@ class ProjectServiceTest {
         project.setId(5L);
 
         when(projectRepository.findById(5L)).thenReturn(Optional.of(project));
-
         Project result = projectService.getById(5L);
-
         assertNotNull(result);
         assertEquals(5L, result.getId());
     }

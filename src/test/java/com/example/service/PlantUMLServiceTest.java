@@ -19,7 +19,7 @@ class PlantUMLServiceTest {
         assertEquals(expected, result);
     }
 
-    // TEST GENERATE IMAGE URL
+    // TEST GENERATE URL
     @Test
     void shouldGeneratePlantUMLImageUrl() {
         String script = "@startuml\nStelios -> Greg\n@enduml";

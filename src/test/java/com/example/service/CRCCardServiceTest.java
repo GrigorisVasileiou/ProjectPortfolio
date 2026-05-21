@@ -30,7 +30,6 @@ class CRCCardServiceTest {
     @Test
     void shouldCreateCard() {
         Project project = new Project();
-        //UseCase useCases = new UseCase();
         List<UseCase> useCases = Arrays.asList(new UseCase());
 
         crcCardService.createCard(

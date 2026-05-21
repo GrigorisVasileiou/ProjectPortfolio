@@ -19,7 +19,6 @@
             height: 100vh;
         }
 
-        /* DARK OVERLAY */
         body::before {
             content: "";
             position: fixed;
@@ -31,7 +30,6 @@
             z-index: -1;
         }
 
-        /* SIDEBAR */
         .sidebar {
             position: fixed;
             left: 0;
@@ -62,7 +60,6 @@
             color: black;
         }
 
-        /* MAIN */
         .main {
             margin-left: 220px;
             padding: 30px;
@@ -75,7 +72,6 @@
             margin-bottom: 20px;
         }
 
-        /* CARD */
         .card {
             background: #020617;
             padding: 20px;
@@ -157,7 +153,6 @@
             border-radius: 5px;
             border: none;
         }
-
     </style>
 </head>
 <body>
@@ -174,7 +169,7 @@
 <div class="main">
     <div class="title">Create Use Case for Project: <span th:text="${project.name}"></span></div>
 
-    <!-- ONLY CREATE FORM -->
+    <!--CREATE FORM-->
     <div class="card">
         <h3>Create New Use Case</h3>
         <form th:action="@{/usecases/create}" method="post">
