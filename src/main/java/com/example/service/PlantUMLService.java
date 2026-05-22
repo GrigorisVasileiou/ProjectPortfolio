@@ -9,8 +9,7 @@ import java.util.Base64;
 public class PlantUMLService {
 
     public static String encode(String text) {
-        return Base64.getEncoder()
-                .encodeToString(text.getBytes(StandardCharsets.UTF_8));
+        return Base64.getEncoder().encodeToString(text.getBytes(StandardCharsets.UTF_8));
     }
 
     public static String toPlantUMLImageUrl(String plantUmlScript) {

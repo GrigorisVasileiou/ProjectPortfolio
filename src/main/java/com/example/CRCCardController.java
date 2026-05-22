@@ -30,7 +30,7 @@ public class CRCCardController {
         this.useCaseService = useCaseService;
     }
 
-    // US11 - εμφάνιση φόρμας δημιουργίας
+    // US11
     @GetMapping("/crc/create/{projectId}")
     public String showCreateForm(@PathVariable Long projectId, Model model) {
 
