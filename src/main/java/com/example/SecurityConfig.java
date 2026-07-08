@@ -29,7 +29,7 @@ public class SecurityConfig {
         http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/", "/login", "/images/**", "/register", "/hello").permitAll()
+                        .requestMatchers("/", "/login", "/register", "/register/**", "/images/**", "/hello").permitAll()
                         .anyRequest().authenticated()
                 )
                 .userDetailsService(userDetailsService)
