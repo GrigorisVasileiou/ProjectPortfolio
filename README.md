@@ -86,7 +86,7 @@ http://localhost:8080
 
 ## Documentation
 
-The complete project report is available in the `docs` folder.
+The complete project report is available in the Report.pdf.
 
 The project report contains:
 - Use Case descriptions
