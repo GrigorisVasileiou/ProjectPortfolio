@@ -84,6 +84,17 @@ The application will be available at
 http://localhost:8080
 ```
 
+## Documentation
+
+The complete project report is available in the `docs` folder.
+
+The project report contains:
+- Use Case descriptions
+- CRC Cards
+- UML diagrams
+- Project timeline
+- Sprint progress and project management details
+
 ## Authors
 
 Grigoris Rafail Vasileiou
