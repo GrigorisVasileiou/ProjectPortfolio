@@ -95,7 +95,7 @@ The project report contains:
 - Project timeline
 - Sprint progress and project management details
 
-## Authors
+## Author
 
 Grigoris Rafail Vasileiou
 University of Ioannina
