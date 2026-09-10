@@ -97,6 +97,7 @@ The project report contains:
 
 ## Author
 
-Grigoris Rafail Vasileiou
+Grigoris Rafail Vasileiou,
+Georgios Papadopoulos
 University of Ioannina
 Software Engineering Course
