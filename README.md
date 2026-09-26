@@ -1,4 +1,4 @@
-<img width="1582" height="730" alt="Στιγμιότυπο οθόνης 2026-09-25 135432" src="https://github.com/user-attachments/assets/b0a602c6-406e-40bb-bf15-f44cf80e422b" /><img width="1582" height="730" alt="Στιγμιότυπο οθόνης 2026-09-25 135432" src="https://github.com/user-attachments/assets/9dbc9c5d-398d-4e0c-8775-5c716d4cada5" /># ProjectPortfolio
+ProjectPortfolio
 
 ProjectPortfolio is a web application developed for the Software Engineering course.
 
