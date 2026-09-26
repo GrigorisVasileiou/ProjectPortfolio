@@ -95,6 +95,10 @@ The project report contains:
 - Project timeline
 - Sprint progress and project management details
 
+## How the Application Works
+
+
+
 ## Author
 
 Grigoris Rafail Vasileiou,
