@@ -103,19 +103,16 @@ The application provides a workspace where developers can organize their softwar
 
 ### 1. User Registration and Login
 
-New users can create an account by providing a username, email, and password.
+When the application is launched, users are presented with the login page. Users who already have an account can log in using their credentials. If they do not have an account, they can select the registration option to create one.
 
 ![Welcome Page](tutorial/welcome_page.png)
-
-After registering, users can log in using their credentials to access their workspace.
-
-![Login](screenshots/login.png)
+![Register Page](tutorial/register_page.png)
 
 ### 2. Workspace
 
 After a successful login, the user is redirected to their personal workspace. From there, they can view their existing projects, create new projects, or manage their projects.
 
-![Workspace](screenshots/workspace.png)
+![Workspace Page](tutorial/workspace_page.png)
 
 ### 3. Project Management
 
