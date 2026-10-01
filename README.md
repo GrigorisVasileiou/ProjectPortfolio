@@ -114,25 +114,34 @@ After a successful login, the user is redirected to their personal workspace. Fr
 
 ![Workspace Page](tutorial/workspace_page.png)
 
-### 3. Project Management
+### 3. User Profile
+
+From the profile page, users can manage their account information. They can update their username, email address, and password.
+
+![Profile](tutorial/profile_page.png)
+
+### 4. Project Management
 
 Users can create new projects and organize their software development work within them. Projects can also be deleted when they are no longer needed.
 
-![Create Project](screenshots/create-project.png)
+![Projects](tutorial/projects_page1.png)
+![Projects](tutorial/projects_page2.png)
 
-### 4. Use Cases
+### 5. Use Cases
 
 For each project, users can create and manage use cases by defining the actors, preconditions, main flow, and postconditions. Existing use cases can also be updated or deleted.
 
-![Use Cases](screenshots/use-cases.png)
+![Use Cases](tutorial/create_usecase_page.png)
+![Use Cases](tutorial/view_usecase_page.png)
 
-### 5. CRC Cards
+### 6. CRC Cards
 
-Users can create CRC cards by specifying the class name, responsibilities, and collaborations. CRC cards can be updated, deleted, and linked to one or more use cases.
+Users can create CRC cards by specifying the class name, responsibilities, collaborations and link them with Use Cases if you wants. CRC cards can be updated, deleted, and linked to one or more use cases.
 
-![CRC Cards](screenshots/crc-cards.png)
+![CRC Cards](tutorial/create_crccard_page.png)
+![CRC Cards](tutorial/view_crccard_page.png)
 
-### 6. UML Diagrams
+### 7. UML Diagrams
 
 The application can generate scripts for visualizing the project's use cases and CRC cards as UML diagrams using text-based UML tools such as PlantUML and Nomnoml.
 
