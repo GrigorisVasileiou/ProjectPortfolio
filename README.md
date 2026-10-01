@@ -105,7 +105,7 @@ The application provides a workspace where developers can organize their softwar
 
 New users can create an account by providing a username, email, and password.
 
-![Register]([screenshots/register.png](https://github.com/GrigorisVasileiou/ProjectPortfolio/blob/main/tutorial/welcome_page.png))
+![Welcome Page](tutorial/welcome_page.png)
 
 After registering, users can log in using their credentials to access their workspace.
 
