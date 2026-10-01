@@ -97,6 +97,49 @@ The project report contains:
 
 ## How the Application Works
 
+## How the Application Works
+
+The application provides a workspace where developers can organize their software projects, define use cases, create CRC cards, and visualize the project's design through UML diagrams.
+
+### 1. User Registration and Login
+
+New users can create an account by providing a username, email, and password.
+
+![Register]([screenshots/register.png](https://github.com/GrigorisVasileiou/ProjectPortfolio/blob/main/tutorial/welcome_page.png))
+
+After registering, users can log in using their credentials to access their workspace.
+
+![Login](screenshots/login.png)
+
+### 2. Workspace
+
+After a successful login, the user is redirected to their personal workspace. From there, they can view their existing projects, create new projects, or manage their projects.
+
+![Workspace](screenshots/workspace.png)
+
+### 3. Project Management
+
+Users can create new projects and organize their software development work within them. Projects can also be deleted when they are no longer needed.
+
+![Create Project](screenshots/create-project.png)
+
+### 4. Use Cases
+
+For each project, users can create and manage use cases by defining the actors, preconditions, main flow, and postconditions. Existing use cases can also be updated or deleted.
+
+![Use Cases](screenshots/use-cases.png)
+
+### 5. CRC Cards
+
+Users can create CRC cards by specifying the class name, responsibilities, and collaborations. CRC cards can be updated, deleted, and linked to one or more use cases.
+
+![CRC Cards](screenshots/crc-cards.png)
+
+### 6. UML Diagrams
+
+The application can generate scripts for visualizing the project's use cases and CRC cards as UML diagrams using text-based UML tools such as PlantUML and Nomnoml.
+
+![UML Diagrams](screenshots/diagrams.png)
 
 
 ## Author
