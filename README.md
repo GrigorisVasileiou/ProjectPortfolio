@@ -124,8 +124,13 @@ From the profile page, users can manage their account information. They can upda
 
 Users can create new projects and organize their software development work within them. Projects can also be deleted when they are no longer needed.
 
-![Projects](tutorial/projects_page1.png)
-![Projects](tutorial/projects_page2.png)
+![Projects](tutorial/projects_page_1.png)
+![Projects](tutorial/projects_page_2.png)
+
+Here the user can see the project details.
+
+![Projects](tutorial/projects_details_page1.png)
+![Projects](tutorial/projects_details_page2.png)
 
 ### 5. Use Cases
 
