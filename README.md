@@ -156,7 +156,7 @@ An example for the Use Case Script.
 An example for the CRC Card Script.
 ![Scripts](tutorial/crccard_script_page.png)
 
-Then the user can copy the scripts and paste them at PlantUML here: https://plantuml.com/
+The generated scripts can be copied and used in applications and online tools such as PlantUML (https://plantuml.com/) or PlantText (https://www.planttext.com/) to visualize the corresponding UML diagrams.
 
 The example of Use Case at PlantUML.
 ![Scripts](tutorial/plantuml_usecase.png)
