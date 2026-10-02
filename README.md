@@ -108,7 +108,7 @@ When the application is launched, users are presented with the login page. Users
 
 ### 2. Workspace
 
-After a successful login, the user is redirected to their personal workspace. From there, they can view their existing projects, create new projects, or manage their projects.
+After a successful login, the user is redirected to their personal workspace. From there, they can view their existing projects, show his Profile or logout from his account.
 
 ![Workspace Page](tutorial/workspace_page.png)
 
@@ -158,10 +158,10 @@ An example for the CRC Card Script.
 
 The generated scripts can be copied and used in applications and online tools such as PlantUML (https://plantuml.com/) or PlantText (https://www.planttext.com/) to visualize the corresponding UML diagrams.
 
-The example of Use Case at PlantUML.
+The example of Use Case at PlantText.
 ![Scripts](tutorial/plantuml_usecase.png)
 
-The example of CRC Card at PlantUML.
+The example of CRC Card at PlantText.
 ![Scripts](tutorial/plantuml_crccard.png)
 
 ## Author
