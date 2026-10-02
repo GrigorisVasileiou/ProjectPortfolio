@@ -159,8 +159,9 @@ An example for the CRC Card Script.
 ![Scripts](tutorial/crccard_script_page.png)
 
 Then the user can copy the scripts and paste them at PlantUML here: https://plantuml.com/
+
 The example of Use Case at PlantUML.
-![Scripts](tutorial/plantum_usecase.png)
+![Scripts](tutorial/plantuml_usecase.png)
 
 The example of CRC Card at PlantUML.
 ![Scripts](tutorial/plantuml_crccard.png)
