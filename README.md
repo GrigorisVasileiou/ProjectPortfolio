@@ -148,10 +148,22 @@ Users can create CRC cards by specifying the class name, responsibilities, colla
 
 ### 7. UML Diagrams
 
-The application can generate scripts for visualizing the project's use cases and CRC cards as UML diagrams using text-based UML tools such as PlantUML and Nomnoml.
+The application can generate scripts for visualizing the project's use cases and CRC cards as UML diagrams using PlantUML.
 
-![UML Diagrams](screenshots/diagrams.png)
+![Scripts](tutorial/scripts_page.png)
 
+An example for the Use Case Script.
+![Scripts](tutorial/usecase_script_page.png)
+
+An example for the CRC Card Script.
+![Scripts](tutorial/crccard_script_page.png)
+
+Then the user can copy the scripts and paste them at PlantUML here: https://plantuml.com/
+The example of Use Case at PlantUML.
+![Scripts](tutorial/plantum_usecase.png)
+
+The example of CRC Card at PlantUML.
+![Scripts](tutorial/plantuml_crccard.png)
 
 ## Author
 
