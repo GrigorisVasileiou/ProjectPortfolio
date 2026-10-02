@@ -97,8 +97,6 @@ The project report contains:
 
 ## How the Application Works
 
-## How the Application Works
-
 The application provides a workspace where developers can organize their software projects, define use cases, create CRC cards, and visualize the project's design through UML diagrams.
 
 ### 1. User Registration and Login
